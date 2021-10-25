@@ -235,7 +235,6 @@ async def music_onoff(_, message):
         )
         return
     status = message.text.split(None, 1)[1]
-    message.chat.id
     if status in ("ON", "on", "On"):
         lel = await message.reply("`processing...`")
         if message.chat.id not in DISABLED_GROUPS:
@@ -276,9 +275,6 @@ async def p_cb(b, cb):
     global que
     que.get(cb.message.chat.id)
     type_ = cb.matches[0].group(1)
-    cb.message.chat.id
-    cb.message.chat
-    cb.message.reply_markup.inline_keyboard[1][0].callback_data
     if type_ == "playlist":
         queue = que.get(cb.message.chat.id)
         if not queue:
@@ -331,10 +327,8 @@ async def m_cb(b, cb):
         chet_id = cb.message.chat.id
     qeue = que.get(chet_id)
     type_ = cb.matches[0].group(1)
-    cb.message.chat.id
     m_chat = cb.message.chat
 
-    cb.message.reply_markup.inline_keyboard[1][0].callback_data
     if type_ == "pause":
         if (chet_id not in callsmusic.pytgcalls.active_calls) or (
             callsmusic.pytgcalls.active_calls[chet_id] == "paused"
@@ -596,8 +590,7 @@ async def play(_, message: Message):
         thumb_name = "https://telegra.ph/file/fa2cdb8a14a26950da711.png"
         thumbnail = thumb_name
         duration = round(audio.duration / 60)
-        message.from_user.first_name
-        await generate_cover(title, thumbnail, ctitle)
+        await generate_cover(title, thumbnail)
         file_path = await converter.convert(
             (await message.reply_to_message.download(file_name))
             if not path.isfile(path.join("downloads", file_name))
@@ -641,7 +634,6 @@ async def play(_, message: Message):
                 ],
             ]
         )
-        message.from_user.first_name
         await generate_cover(title, thumbnail, ctitle)
         file_path = await converter.convert(youtube.download(url))
     else:
@@ -736,7 +728,6 @@ async def play(_, message: Message):
                     ],
                 ]
             )
-            message.from_user.first_name
             await generate_cover(title, thumbnail, ctitle)
             file_path = await converter.convert(youtube.download(url))
     chat_id = get_chat_id(message.chat)
