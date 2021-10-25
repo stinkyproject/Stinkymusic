@@ -2,7 +2,7 @@ import asyncio
 
 from callsmusic.callsmusic import client as USER
 from config import BOT_USERNAME, SUDO_USERS
-from helpers.decorators import authorized_users_only, errors
+from helpers.decorators import authorized_users_only, errors, sudo_users_only
 from helpers.filters import command
 from pyrogram import Client, filters
 from pyrogram.errors import UserAlreadyParticipant
@@ -60,6 +60,7 @@ async def rem(client, message):
 
 
 @Client.on_message(command(["leaveall", f"leaveall@{BOT_USERNAME}"]))
+@sudo_users_only
 async def bye(client, message):
     if message.from_user.id not in SUDO_USERS:
         return
