@@ -294,6 +294,7 @@ async def cbskip(_, query: CallbackQuery):
         "⏭ **You've skipped to the next song**", reply_markup=BACK_BUTTON
     )
 
+# volume commands need to use an regristred api id & api hash for userbot
 
 @Client.on_message(command(["volume", f"volume@{BOT_USERNAME}"]) & other_filters)
 @authorized_users_only
