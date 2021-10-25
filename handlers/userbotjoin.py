@@ -1,8 +1,7 @@
 import asyncio
-
 from callsmusic.callsmusic import client as USER
 from config import BOT_USERNAME, SUDO_USERS
-from helpers.decorators import authorized_users_only, errors
+from helpers.decorators import authorized_users_only, sudo_users_only, errors
 from helpers.filters import command
 from pyrogram import Client, filters
 from pyrogram.errors import UserAlreadyParticipant
@@ -13,7 +12,7 @@ from pyrogram.errors import UserAlreadyParticipant
 )
 @authorized_users_only
 @errors
-async def addchannel(client, message):
+async def join_group(client, message):
     chid = message.chat.id
     try:
         invitelink = await client.export_chat_invite_link(chid)
@@ -48,7 +47,7 @@ async def addchannel(client, message):
     command(["leave", f"leave@{BOT_USERNAME}"]) & filters.group & ~filters.edited
 )
 @authorized_users_only
-async def rem(client, message):
+async def leave_group(client, message):
     try:
         await USER.send_message(message.chat.id, "✅ userbot successfully left chat")
         await USER.leave_chat(message.chat.id)
@@ -61,7 +60,8 @@ async def rem(client, message):
 
 
 @Client.on_message(command(["leaveall", f"leaveall@{BOT_USERNAME}"]))
-async def bye(client, message):
+@sudo_users_only
+async def leave_all(client, message):
     if message.from_user.id not in SUDO_USERS:
         return
 
