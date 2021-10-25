@@ -996,15 +996,15 @@ async def ytplay(_, message: Message):
                 f"❌ **music with duration more than** `{DURATION_LIMIT}` **minutes, can't play !**"
             )
             return
-        except:
-            pass   
+    except:
+        pass
     keyboard = InlineKeyboardMarkup(
         [
             [
                 InlineKeyboardButton("• Mᴇɴᴜ", callback_data="menu"),
                 InlineKeyboardButton("• Cʟᴏsᴇ", callback_data="cls"),
-            ],[
-                InlineKeyboardButton("• Cʜᴀɴɴᴇʟ", url=f"https://t.me/{UPDATES_CHANNEL}")],
+            ],
+            [InlineKeyboardButton("• Cʜᴀɴɴᴇʟ", url=f"https://t.me/{UPDATES_CHANNEL}")],
         ]
     )
     await generate_cover(title, thumbnail, ctitle)
@@ -1035,6 +1035,10 @@ async def ytplay(_, message: Message):
         qeue.append(appendable)
         try:
             callsmusic.pytgcalls.join_group_call(chat_id, file_path)
+        except:
+            await lel.edit(
+                "😕 **voice chat not found**\n\n» please turn on the voice chat first"
+            )
             return
         await lel.delete()
         await message.reply_photo(
