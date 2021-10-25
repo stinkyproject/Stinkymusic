@@ -17,7 +17,7 @@ async def addchannel(client, message):
     chid = message.chat.id
     try:
         invitelink = await client.export_chat_invite_link(chid)
-    except:
+    except BaseException:
         await message.reply_text(
             "• **i'm not have permission:**\n\n» ❌ __Add Users__",
         )
@@ -25,7 +25,7 @@ async def addchannel(client, message):
 
     try:
         user = await USER.get_me()
-    except:
+    except BaseException:
         user.first_name = "music assistant"
 
     try:
@@ -44,15 +44,14 @@ async def addchannel(client, message):
     )
 
 
-@Client.on_message(
-    command(["leave", f"leave@{BOT_USERNAME}"]) & filters.group & ~filters.edited
-)
+@Client.on_message(command(["leave",
+                            f"leave@{BOT_USERNAME}"]) & filters.group & ~filters.edited)
 @authorized_users_only
 async def rem(client, message):
     try:
         await USER.send_message(message.chat.id, "✅ userbot successfully left chat")
         await USER.leave_chat(message.chat.id)
-    except:
+    except BaseException:
         await message.reply_text(
             "❌ **userbot couldn't leave your group, may be floodwaits.**\n\n**» or manually kick userbot from your group**"
         )
@@ -75,7 +74,7 @@ async def bye(client, message):
             await lol.edit(
                 f"Userbot leaving all group...\n\nLeft: {left} chats.\nFailed: {failed} chats."
             )
-        except:
+        except BaseException:
             failed += 1
             await lol.edit(
                 f"Userbot leaving...\n\nLeft: {left} chats.\nFailed: {failed} chats."

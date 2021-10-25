@@ -4,8 +4,7 @@ from asyncio import QueueEmpty
 
 from callsmusic import callsmusic
 from callsmusic.queues import queues
-from config import BOT_USERNAME, que
-from cache.admins import admins
+from config import BOT_USERNAME
 from handlers.play import cb_admin_check
 from helpers.channelmusic import get_chat_id
 from helpers.dbtools import delcmd_is_on, delcmd_off, delcmd_on, handle_user_status
@@ -39,7 +38,8 @@ BACK_BUTTON = InlineKeyboardMarkup(
 # remove the ( # ) if you want the auto del cmd feature is on
 
 
-@Client.on_message(command(["reload", f"reload@{BOT_USERNAME}"]) & other_filters)
+@Client.on_message(command(["reload",
+                            f"reload@{BOT_USERNAME}"]) & other_filters)
 async def update_admin(client, message):
     global admins
     new_admins = []
@@ -53,7 +53,8 @@ async def update_admin(client, message):
 
 
 # Control Menu Of Player
-@Client.on_message(command(["control", f"control@{BOT_USERNAME}"]) & other_filters)
+@Client.on_message(command(["control",
+                            f"control@{BOT_USERNAME}"]) & other_filters)
 @errors
 @authorized_users_only
 async def controlset(_, message: Message):
@@ -92,7 +93,8 @@ async def pause(_, message: Message):
         )
 
 
-@Client.on_message(command(["resume", f"resume@{BOT_USERNAME}"]) & other_filters)
+@Client.on_message(command(["resume",
+                            f"resume@{BOT_USERNAME}"]) & other_filters)
 @errors
 @authorized_users_only
 async def resume(_, message: Message):
@@ -108,7 +110,10 @@ async def resume(_, message: Message):
         )
 
 
-@Client.on_message(command(["end", f"end@{BOT_USERNAME}", "stop", f"end@{BOT_USERNAME}"]) & other_filters)
+@Client.on_message(command(["end",
+                            f"end@{BOT_USERNAME}",
+                            "stop",
+                            f"end@{BOT_USERNAME}"]) & other_filters)
 @errors
 @authorized_users_only
 async def stop(_, message: Message):
@@ -125,7 +130,10 @@ async def stop(_, message: Message):
         await message.reply_text("✅ **music playback has ended**")
 
 
-@Client.on_message(command(["skip", f"skip@{BOT_USERNAME}", "next", f"next@{BOT_USERNAME}"]) & other_filters)
+@Client.on_message(command(["skip",
+                            f"skip@{BOT_USERNAME}",
+                            "next",
+                            f"next@{BOT_USERNAME}"]) & other_filters)
 @errors
 @authorized_users_only
 async def skip(_, message: Message):
@@ -139,7 +147,8 @@ async def skip(_, message: Message):
         if queues.is_empty(chat_id):
             callsmusic.pytgcalls.leave_group_call(chat_id)
         else:
-            callsmusic.pytgcalls.change_stream(chat_id, queues.get(chat_id)["file"])
+            callsmusic.pytgcalls.change_stream(
+                chat_id, queues.get(chat_id)["file"])
 
     qeue = que.get(chat_id)
     if qeue:
@@ -166,7 +175,8 @@ async def authenticate(client, message):
         await message.reply("✅ user already authorized!")
 
 
-@Client.on_message(command(["unauth", f"deauth@{BOT_USERNAME}"]) & other_filters)
+@Client.on_message(command(["unauth",
+                            f"deauth@{BOT_USERNAME}"]) & other_filters)
 @authorized_users_only
 async def deautenticate(client, message):
     global admins
@@ -184,7 +194,8 @@ async def deautenticate(client, message):
 
 
 # this is a anti cmd feature
-@Client.on_message(command(["delcmd", f"delcmd@{BOT_USERNAME}"]) & other_filters)
+@Client.on_message(command(["delcmd",
+                            f"delcmd@{BOT_USERNAME}"]) & other_filters)
 @authorized_users_only
 async def delcmdc(_, message: Message):
     if len(message.command) != 2:
@@ -282,8 +293,8 @@ async def cbskip(_, query: CallbackQuery):
             callsmusic.pytgcalls.leave_group_call(query.message.chat.id)
         else:
             callsmusic.pytgcalls.change_stream(
-                query.message.chat.id, queues.get(query.message.chat.id)["file"]
-            )
+                query.message.chat.id, queues.get(
+                    query.message.chat.id)["file"])
 
     qeue = que.get(chat_id)
     if qeue:
@@ -296,13 +307,15 @@ async def cbskip(_, query: CallbackQuery):
 
 # volume commands need to use an regristred api id & api hash for userbot
 
-@Client.on_message(command(["volume", f"volume@{BOT_USERNAME}"]) & other_filters)
+
+@Client.on_message(command(["volume",
+                            f"volume@{BOT_USERNAME}"]) & other_filters)
 @authorized_users_only
 async def change_volume(client, message):
     range = message.command[1]
     chat_id = message.chat.id
     try:
-       callsmusic.pytgcalls.change_volume_call(chat_id, volume=int(range))
-       await message.reply(f"✅ **volume set to:** ```{range}%```")
+        callsmusic.pytgcalls.change_volume_call(chat_id, volume=int(range))
+        await message.reply(f"✅ **volume set to:** ```{range}%```")
     except Exception as e:
-       await message.reply(f"**error:** {e}")
+        await message.reply(f"**error:** {e}")

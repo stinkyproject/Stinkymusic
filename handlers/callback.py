@@ -88,7 +88,7 @@ async def cbbasic(_, query: CallbackQuery):
 🎧 [ VOICE CHAT PLAY CMD ]
 
 /play (song name) - play song from youtube
-/ytp (song name) - play song directly from youtube 
+/ytp (song name) - play song directly from youtube
 /stream (reply to audio) - play song using audio file
 /playlist - show the list song in queue
 /song (song name) - download song from youtube
@@ -237,17 +237,17 @@ async def cbback(_, query: CallbackQuery):
 async def cbdelcmds(_, query: CallbackQuery):
     await query.edit_message_text(
         f"""📚 **this is the feature information:**
-        
+
 **💡 Feature:** delete every commands sent by users to avoid spam in groups !
 
 ❔ usage:**
 
  1️⃣ to turn on feature:
      » type `/delcmd on`
-    
+
  2️⃣ to turn off feature:
      » type `/delcmd off`
-      
+
 ⚡ __Powered by {BOT_NAME} A.I__""",
         reply_markup=InlineKeyboardMarkup(
             [[InlineKeyboardButton("🔙 Go Back", callback_data="cbback")]]
@@ -305,7 +305,7 @@ async def cblocal(_, query: CallbackQuery):
 🎧 [ VOICE CHAT PLAY CMD ]
 
 /play (song name) - play song from youtube
-/ytp (song name) - play song directly from youtube 
+/ytp (song name) - play song directly from youtube
 /stream (reply to audio) - play song using audio file
 /playlist - show the list song in queue
 /song (song name) - download song from youtube
@@ -403,19 +403,19 @@ async def cbmoon(_, query: CallbackQuery):
 
 @Client.on_callback_query(filters.regex("cmdhome"))
 async def cmdhome(_, query: CallbackQuery):
-    
+
     bttn = InlineKeyboardMarkup(
         [
             [
                 InlineKeyboardButton("Command Syntax", callback_data="cmdsyntax")
-            ],[
+            ], [
                 InlineKeyboardButton("🗑 Close", callback_data="close")
             ]
         ]
     )
-    
+
     nofound = "😕 **couldn't find song you requested**\n\n» **please provide the correct song name or include the artist's name as well**"
-    
+
     await query.edit_message_text(nofound, reply_markup=bttn)
 
 

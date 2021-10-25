@@ -1,14 +1,12 @@
 import os
 import re
 import sys
-import shutil
 import traceback
 import subprocess
 from io import StringIO
 from time import time
 from pyrogram import Client, filters
 from inspect import getfullargspec
-from sys import version as pyver
 from config import BOT_USERNAME
 from helpers.decorators import sudo_users_only
 from helpers.filters import command

@@ -29,7 +29,7 @@ def fetch_heroku_git_url(api_key, app_name):
     heroku = heroku3.from_key(api_key)
     try:
         heroku_applications = heroku.apps()
-    except:
+    except BaseException:
         return None
     heroku_app = None
     for app in heroku_applications:
@@ -38,4 +38,5 @@ def fetch_heroku_git_url(api_key, app_name):
             break
     if not heroku_app:
         return None
-    return heroku_app.git_url.replace("https://", "https://api:" + api_key + "@")
+    return heroku_app.git_url.replace(
+        "https://", "https://api:" + api_key + "@")

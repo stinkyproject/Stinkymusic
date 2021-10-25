@@ -17,13 +17,13 @@ async def convert(file_path: str) -> str:
     try:
         proc = await asyncio.create_subprocess_shell(
             cmd=(
-                "ffmpeg " 
-                "-y -i " 
+                "ffmpeg "
+                "-y -i "
                 f"{file_path} "
                 "-f s16le "
                 "-ac 1 "
                 "-ar 48000 "
-                "-acodec pcm_s16le " 
+                "-acodec pcm_s16le "
                 f"{out}"
             ),
             stdin=asyncio.subprocess.PIPE,
@@ -36,5 +36,5 @@ async def convert(file_path: str) -> str:
             raise FFmpegReturnCodeError("FFmpeg did not return 0")
 
         return out
-    except:
+    except BaseException:
         raise FFmpegReturnCodeError("FFmpeg did not return 0")

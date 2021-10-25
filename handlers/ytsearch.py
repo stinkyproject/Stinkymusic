@@ -4,7 +4,6 @@ from config import BOT_USERNAME
 from helpers.filters import command
 from pyrogram import Client
 from pyrogram.types import (
-    CallbackQuery,
     InlineKeyboardButton,
     InlineKeyboardMarkup,
     Message,
@@ -12,15 +11,15 @@ from pyrogram.types import (
 from youtube_search import YoutubeSearch
 
 logging.basicConfig(
-    level=logging.DEBUG, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-)
+    level=logging.DEBUG,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
 
 @Client.on_message(command(["search", f"search@{BOT_USERNAME}"]))
 async def ytsearch(_, message: Message):
-    
+
     keyboard = InlineKeyboardMarkup(
         [
             [
@@ -30,7 +29,7 @@ async def ytsearch(_, message: Message):
             ]
         ]
     )
-    
+
     try:
         if len(message.command) < 2:
             await message.reply_text("/search **needs an argument !**")

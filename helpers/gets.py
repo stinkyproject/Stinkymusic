@@ -27,7 +27,7 @@ def get_url(message_1: Message) -> Union[str, None]:
     if offset in (None,):
         return None
 
-    return text[offset : offset + length]
+    return text[offset: offset + length]
 
 
 def get_file_name(audio: Union[Audio, Voice]):
@@ -88,12 +88,20 @@ def get_url(message_1: Message) -> Union[str, None]:
                     break
     if offset in (None,):
         return None
-    return text[offset : offset + length]
+    return text[offset: offset + length]
 
 
 random_assistant = ["5", "1", "2", "3", "4"]
 
-themes = ["Black", "Grey", "Green", "Purple", "Red", "Lightred", "Blue", "Lightblue"]
+themes = [
+    "Black",
+    "Grey",
+    "Green",
+    "Purple",
+    "Red",
+    "Lightred",
+    "Blue",
+    "Lightblue"]
 
 
 def bytes(size: float) -> str:

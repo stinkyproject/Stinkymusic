@@ -13,7 +13,10 @@ downloads = os.path.realpath("downloads")
 raw = os.path.realpath("raw_files")
 
 
-@Client.on_message(command(["rmd", "clean", f"rmd@{BOT_USERNAME}", f"clean@{BOT_USERNAME}"]) & ~filters.edited)
+@Client.on_message(command(["rmd",
+                            "clean",
+                            f"rmd@{BOT_USERNAME}",
+                            f"clean@{BOT_USERNAME}"]) & ~filters.edited)
 @errors
 @sudo_users_only
 async def clear_downloads(_, message: Message):

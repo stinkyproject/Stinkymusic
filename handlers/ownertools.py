@@ -78,13 +78,13 @@ async def ban(c: Client, m: Message):
                 f"😕 sorry, you're banned!** \n\nreason: `{ban_reason}` \nduration: `{ban_duration}` day(s). \n\n**💬 message from owner: ask in @{GROUP_SUPPORT} if you think this was an mistake.",
             )
             ban_log_text += "\n\n✅ this notification was sent to that user"
-        except:
+        except BaseException:
             traceback.print_exc()
             ban_log_text += f"\n\n❌ **failed sent this notification to that user** \n\n`{traceback.format_exc()}`"
         await db.ban_user(user_id, ban_duration, ban_reason)
         print(ban_log_text)
         await m.reply_text(ban_log_text, quote=True)
-    except:
+    except BaseException:
         traceback.print_exc()
         await m.reply_text(
             f"❌ an error occoured, traceback is given below:\n\n`{traceback.format_exc()}`",
@@ -107,13 +107,13 @@ async def unban(c: Client, m: Message):
         try:
             await c.send_message(user_id, "🎊 congratulations, you was unbanned!")
             unban_log_text += "\n\n✅ this notification was sent to that user"
-        except:
+        except BaseException:
             traceback.print_exc()
             unban_log_text += f"\n\n❌ **failed sent this notification to that user** \n\n`{traceback.format_exc()}`"
         await db.remove_ban(user_id)
         print(unban_log_text)
         await m.reply_text(unban_log_text, quote=True)
-    except:
+    except BaseException:
         traceback.print_exc()
         await m.reply_text(
             f"❌ an error occoured, traceback is given below:\n\n`{traceback.format_exc()}`",
@@ -252,7 +252,7 @@ def _check_heroku(func):
         if HEROKU_APP_NAME and heroku_client:
             try:
                 heroku_app = heroku_client.app(HEROKU_APP_NAME)
-            except:
+            except BaseException:
                 await message.reply_text(
                     message,
                     "`heroku api key and app name doesn't match, please recheck`",

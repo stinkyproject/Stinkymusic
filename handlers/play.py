@@ -56,13 +56,14 @@ def cb_admin_check(func: Callable) -> Callable:
 
 def transcode(filename):
     ffmpeg.input(filename).output(
-        "input.raw", 
-        format="s16le", 
-        acodec="pcm_s16le", 
-        ac=2, 
+        "input.raw",
+        format="s16le",
+        acodec="pcm_s16le",
+        ac=2,
         ar="48k"
     ).overwrite_output().run()
     os.remove(filename)
+
 
 def convert_seconds(seconds):
     seconds = seconds % (24 * 3600)
@@ -71,9 +72,15 @@ def convert_seconds(seconds):
     seconds %= 60
     return "%02d:%02d" % (minutes, seconds)
 
+
 def time_to_seconds(time):
     stringt = str(time)
-    return sum(int(x) * 60 ** i for i, x in enumerate(reversed(stringt.split(":"))))
+    return sum(
+        int(x) * 60 ** i for i,
+        x in enumerate(
+            reversed(
+                stringt.split(":"))))
+
 
 def changeImageSize(maxWidth, maxHeight, image):
     widthRatio = maxWidth / image.size[0]
@@ -83,12 +90,13 @@ def changeImageSize(maxWidth, maxHeight, image):
     newImage = image.resize((newWidth, newHeight))
     return newImage
 
+
 async def generate_cover(title, thumbnail, ctitle):
     async with aiohttp.ClientSession() as session, session.get(thumbnail) as resp:
-          if resp.status == 200:
-              f = await aiofiles.open("background.png", mode="wb")
-              await f.write(await resp.read())
-              await f.close()
+        if resp.status == 200:
+            f = await aiofiles.open("background.png", mode="wb")
+            await f.write(await resp.read())
+            await f.close()
     image1 = Image.open("./background.png")
     image2 = Image.open("etc/foreground.png")
     image3 = changeImageSize(1280, 720, image1)
@@ -107,21 +115,20 @@ async def generate_cover(title, thumbnail, ctitle):
     os.remove("background.png")
 
 
-@Client.on_message(
-    command(["playlist", f"playlist@{BOT_USERNAME}"]) & filters.group & ~filters.edited
-)
+@Client.on_message(command(["playlist",
+                            f"playlist@{BOT_USERNAME}"]) & filters.group & ~filters.edited)
 async def playlist(client, message):
 
     keyboard = InlineKeyboardMarkup(
         [
             [
-                InlineKeyboardButton("• Gʀᴏᴜᴘ", url=f"https://t.me/{GROUP_SUPPORT}"),
                 InlineKeyboardButton(
-                    "• Cʜᴀɴɴᴇʟ", url=f"https://t.me/{UPDATES_CHANNEL}"
-                ),
-            ]
-        ]
-    )
+                    "• Gʀᴏᴜᴘ",
+                    url=f"https://t.me/{GROUP_SUPPORT}"),
+                InlineKeyboardButton(
+                    "• Cʜᴀɴɴᴇʟ",
+                    url=f"https://t.me/{UPDATES_CHANNEL}"),
+            ]])
 
     global que
     if message.chat.id in DISABLED_GROUPS:
@@ -148,7 +155,8 @@ async def playlist(client, message):
             msg += f"\n• Req by {usr}"
     await message.reply_text(msg, reply_markup=keyboard)
 
-# ============================= Settings =========================================
+# ============================= Settings =================================
+
 
 def updated_stats(chat, queue, vol=100):
     if chat.id in callsmusic.pytgcalls.active_calls:
@@ -186,9 +194,8 @@ def r_ply(type_):
     return mar
 
 
-@Client.on_message(
-    command(["player", f"player@{BOT_USERNAME}"]) & filters.group & ~filters.edited
-)
+@Client.on_message(command(["player",
+                            f"player@{BOT_USERNAME}"]) & filters.group & ~filters.edited)
 @authorized_users_only
 async def settings(client, message):
     global que
@@ -220,7 +227,7 @@ async def music_onoff(_, message):
     global DISABLED_GROUPS
     try:
         message.from_user.id
-    except:
+    except BaseException:
         return
     if len(message.command) != 2:
         await message.reply_text(
@@ -231,7 +238,7 @@ async def music_onoff(_, message):
     message.chat.id
     if status in ("ON", "on", "On"):
         lel = await message.reply("`processing...`")
-        if not message.chat.id in DISABLED_GROUPS:
+        if message.chat.id not in DISABLED_GROUPS:
             await lel.edit("» **music player already turned on.**")
             return
         DISABLED_GROUPS.remove(message.chat.id)
@@ -463,11 +470,11 @@ async def m_cb(b, cb):
 
             callsmusic.pytgcalls.leave_group_call(chet_id)
             await cb.message.edit(
-                    hps,
-                    reply_markup=InlineKeyboardMarkup(
-                        [[InlineKeyboardButton("🗑 Close", callback_data="close")]]
-                    ),
-                )
+                hps,
+                reply_markup=InlineKeyboardMarkup(
+                    [[InlineKeyboardButton("🗑 Close", callback_data="close")]]
+                ),
+            )
         else:
             await cb.answer(
                 "userbot is not connected to voice chat.", show_alert=True
@@ -476,19 +483,19 @@ async def m_cb(b, cb):
 
 @Client.on_message(command(["play", f"play@{BOT_USERNAME}"]) & other_filters)
 async def play(_, message: Message):
-    
+
     bttn = InlineKeyboardMarkup(
         [
             [
                 InlineKeyboardButton("Command Syntax", callback_data="cmdsyntax")
-            ],[
+            ], [
                 InlineKeyboardButton("🗑 Close", callback_data="close")
             ]
         ]
     )
-    
+
     nofound = "😕 **couldn't find song you requested**\n\n» **please provide the correct song name or include the artist's name as well**"
-    
+
     global que
     global useer
     if message.chat.id in DISABLED_GROUPS:
@@ -498,13 +505,13 @@ async def play(_, message: Message):
     chid = message.chat.id
     try:
         user = await USER.get_me()
-    except:
+    except BaseException:
         user.first_name = "music assistant"
     usar = user
     wew = usar.id
     try:
         await _.get_chat_member(chid, wew)
-    except:
+    except BaseException:
         for administrator in administrators:
             if administrator == message.from_user.id:
                 if message.chat.title.startswith("Channel Music: "):
@@ -513,7 +520,7 @@ async def play(_, message: Message):
                     )
                 try:
                     invitelink = await _.export_chat_invite_link(chid)
-                except:
+                except BaseException:
                     await lel.edit(
                         "💡 **To use me, I need to be an Administrator** with the permissions:\n\n» ❌ __Delete messages__\n» ❌ __Ban users__\n» ❌ __Add users__\n» ❌ __Manage voice chat__\n\n**Then type /reload**",
                     )
@@ -533,7 +540,7 @@ async def play(_, message: Message):
                     )
     try:
         await USER.get_chat(chid)
-    except:
+    except BaseException:
         await lel.edit(
             f"» **userbot not in this chat or is banned in this group !**\n\n**unban @{ASSISTANT_NAME} and added again to this group manually, or type /reload then try again."
         )
@@ -646,7 +653,7 @@ async def play(_, message: Message):
 
         try:
             results = YoutubeSearch(query, max_results=5).to_dict()
-        except:
+        except BaseException:
             await lel.edit(
                 "😕 **song name not detected**\n\n» **please provide the name of the song you want to play**"
             )
@@ -690,10 +697,10 @@ async def play(_, message: Message):
                 reply_markup=keyboard,
             )
             await lel.delete()
-            
+
             return
-        
-        except:
+
+        except BaseException:
             pass
 
             try:
@@ -758,7 +765,7 @@ async def play(_, message: Message):
         qeue.append(appendable)
         try:
             callsmusic.pytgcalls.join_group_call(chat_id, file_path)
-        except:
+        except BaseException:
             await lel.edit(
                 "😕 **voice chat not found**\n\n» please turn on the voice chat first"
             )
@@ -775,26 +782,26 @@ async def play(_, message: Message):
 
 @Client.on_callback_query(filters.regex(pattern=r"plll"))
 async def lol_cb(b, cb):
-    
+
     bttn = InlineKeyboardMarkup(
         [
             [
                 InlineKeyboardButton("Command Syntax", callback_data="cmdsyntax")
-            ],[
+            ], [
                 InlineKeyboardButton("🗑 Close", callback_data="close")
             ]
         ]
     )
-    
+
     nofound = "😕 **couldn't find song you requested**\n\n» **please provide the correct song name or include the artist's name as well**"
-    
+
     global que
     cbd = cb.data.strip()
     chat_id = cb.message.chat.id
     typed_ = cbd.split(None, 1)[1]
     try:
         x, query, useer_id = typed_.split("|")
-    except:
+    except BaseException:
         await cb.message.reply_photo(
             photo=f"{CMD_IMG}",
             caption=nofound,
@@ -809,7 +816,7 @@ async def lol_cb(b, cb):
     x = int(x)
     try:
         cb.message.reply_to_message.from_user.first_name
-    except:
+    except BaseException:
         cb.message.from_user.first_name
     results = YoutubeSearch(query, max_results=5).to_dict()
     resultss = results[x]["url_suffix"]
@@ -827,7 +834,7 @@ async def lol_cb(b, cb):
                 f"❌ **music with duration more than** `{DURATION_LIMIT}` **minutes, can't play !**"
             )
             return
-    except:
+    except BaseException:
         pass
     try:
         thumb_name = f"{title}.jpg"
@@ -855,7 +862,7 @@ async def lol_cb(b, cb):
         s_name = title
         try:
             r_by = cb.message.reply_to_message.from_user
-        except:
+        except BaseException:
             r_by = cb.message.from_user
         loc = file_path
         appendable = [s_name, r_by, loc]
@@ -873,7 +880,7 @@ async def lol_cb(b, cb):
         s_name = title
         try:
             r_by = cb.message.reply_to_message.from_user
-        except:
+        except BaseException:
             r_by = cb.message.from_user
         loc = file_path
         appendable = [s_name, r_by, loc]
@@ -893,19 +900,19 @@ async def lol_cb(b, cb):
 
 @Client.on_message(command(["ytp", f"ytp@{BOT_USERNAME}"]) & other_filters)
 async def ytplay(_, message: Message):
-    
+
     bttn = InlineKeyboardMarkup(
         [
             [
                 InlineKeyboardButton("Command Syntax", callback_data="cmdsyntax")
-            ],[
+            ], [
                 InlineKeyboardButton("🗑 Close", callback_data="close")
             ]
         ]
     )
-    
+
     nofound = "😕 **couldn't find song you requested**\n\n» **please provide the correct song name or include the artist's name as well**"
-    
+
     global que
     if message.chat.id in DISABLED_GROUPS:
         return
@@ -915,13 +922,13 @@ async def ytplay(_, message: Message):
 
     try:
         user = await USER.get_me()
-    except:
+    except BaseException:
         user.first_name = "music assistant"
     usar = user
     wew = usar.id
     try:
         await _.get_chat_member(chid, wew)
-    except:
+    except BaseException:
         for administrator in administrators:
             if administrator == message.from_user.id:
                 if message.chat.title.startswith("Channel Music: "):
@@ -930,7 +937,7 @@ async def ytplay(_, message: Message):
                     )
                 try:
                     invitelink = await _.export_chat_invite_link(chid)
-                except:
+                except BaseException:
                     await lel.edit(
                         "💡 **To use me, I need to be an Administrator with the permissions:\n\n» ❌ __Delete messages__\n» ❌ __Ban users__\n» ❌ __Add users__\n» ❌ __Manage voice chat__\n\n**Then type /reload**",
                     )
@@ -952,7 +959,7 @@ async def ytplay(_, message: Message):
                     )
     try:
         await USER.get_chat(chid)
-    except:
+    except BaseException:
         await lel.edit(
             f"» **userbot not in this chat or is banned in this group !**\n\n**unban @{ASSISTANT_NAME} and add to this group again manually, or type /reload then try again.**"
         )
@@ -996,7 +1003,7 @@ async def ytplay(_, message: Message):
                 f"❌ **music with duration more than** `{DURATION_LIMIT}` **minutes, can't play !**"
             )
             return
-    except:
+    except BaseException:
         pass
     keyboard = InlineKeyboardMarkup(
         [
@@ -1035,7 +1042,7 @@ async def ytplay(_, message: Message):
         qeue.append(appendable)
         try:
             callsmusic.pytgcalls.join_group_call(chat_id, file_path)
-        except:
+        except BaseException:
             await lel.edit(
                 "😕 **voice chat not found**\n\n» please turn on the voice chat first"
             )
