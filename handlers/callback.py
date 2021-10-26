@@ -290,8 +290,11 @@ async def cbguides(_, query: CallbackQuery):
 
 1.) **first, add me to your group.**
 2.) **then promote me as admin and give all permissions except anonymous admin.**
+3.) **after promoting me, type /reload in group to update the admin list.**
 3.) **add @{ASSISTANT_NAME} to your group or type /join to invite her.**
-4.) **turn on the voice chat first before start to play music.**
+4.) **turn on the video chat first before start to play music.**
+
+📌 **if the userbot not joined to video chat, make sure if the video chat already turned on, or type /leave then type /join again.**
 
 ⚡ __Powered by {BOT_NAME} A.I__""",
         reply_markup=InlineKeyboardMarkup(
