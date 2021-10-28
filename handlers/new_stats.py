@@ -27,4 +27,4 @@ def stats(_, m: Message):
     
   total_ = len(grps_)
   
-  m.reply_text(f"👥 Total Users: `{total}`\n💭 Total Groups: `{total_}`")
+  await m.reply_text(f"👥 Total Users: `{total}`\n💭 Total Groups: `{total_}`")
