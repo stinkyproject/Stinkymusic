@@ -1,3 +1,5 @@
+import os
+import asyncio
 from pyrogram import Client, filters
 from pyrogram.types import Message
 from pymongo import MongoClient
@@ -12,7 +14,7 @@ grps = users_db['GROUPS']
 
 @Client.on_message(command(["gstats", f"gstats@{BOT_USERNAME}"]) & filters.private & ~filters.edited)
 @sudo_users_only
-def stats(_, m: Message):
+async def stats(_, m: Message):
   users = col.find({})
   mfs = []
   for x in users:
