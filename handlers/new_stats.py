@@ -1,4 +1,5 @@
 from pyrogram import Client, filters
+from pyrogram.types import Message
 from pymongo import MongoClient
 from config import BOT_USERNAME, DATABASE_URL as db_url
 from helpers.filters import command, other_filters
@@ -9,7 +10,7 @@ grps = users_db['GROUPS']
 
 
 @Client.on_message(command(["gstats", f"gstats@{BOT_USERNAME}"]) & filters.private & ~filters.edited)
-def stats(_,message):
+def stats(_, m: Message):
   users = col.find({})
   mfs = []
   for x in users:
@@ -24,4 +25,4 @@ def stats(_,message):
     
   total_ = len(grps_)
   
-  bot.send_message(message.chat.id , f"👥 Total Users: `{total}`\n💭 Total Groups: `{total_}`")
+  m.reply_text(f"👥 Total Users: `{total}`\n💭 Total Groups: `{total_}`")
