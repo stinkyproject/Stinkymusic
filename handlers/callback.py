@@ -155,6 +155,7 @@ async def cbsudo(_, query: CallbackQuery):
 /stats - show the bot statistic
 /gstats - show the user & group statistic
 /rmd - remove all downloaded files
+/clear - remove all .jpg files
 /eval (query) - execute code
 /sh (query) - run code
 
@@ -379,6 +380,7 @@ async def cblab(_, query: CallbackQuery):
 /stats - show the bot statistic
 /gstats - show the user & group statistic
 /rmd - remove all downloaded files
+/clear - remove all .jpg files
 /eval (query) - execute code
 /sh (query) - run code
 
