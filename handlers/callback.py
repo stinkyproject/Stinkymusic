@@ -153,7 +153,6 @@ async def cbsudo(_, query: CallbackQuery):
 
 /leaveall - order the assistant to leave from all group
 /stats - show the bot statistic
-/gstats - show the user & group statistic
 /rmd - remove all downloaded files
 /clear - remove all .jpg files
 /eval (query) - execute code
@@ -378,7 +377,6 @@ async def cblab(_, query: CallbackQuery):
 
 /leaveall - order the assistant to leave from all group
 /stats - show the bot statistic
-/gstats - show the user & group statistic
 /rmd - remove all downloaded files
 /clear - remove all .jpg files
 /eval (query) - execute code
