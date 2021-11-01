@@ -1,6 +1,6 @@
-FROM nikolaik/python-nodejs:python3.9-nodejs17
-RUN apt-get update && apt-get upgrade -y
-RUN apt-get install ffmpeg -y
+FROM nikolaik/python-nodejs:python3.9-nodejs16
+RUN apt update && apt upgrade -y
+RUN apt install python3-pip ffmpeg -y
 COPY . /app
 WORKDIR /app
 RUN pip3 install -U pip
