@@ -864,7 +864,7 @@ async def lol_cb(b, cb):
         await b.send_photo(
             chat_id,
             photo="final.png",
-            caption=f"💡 **Track added to queue »** `{position}`\n\n🏷 **Name:** [{title[:35]}...]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {r_by.mention()}",
+            caption=f"💡 **Track added to queue »** `{position}`\n\n🏷 **Name:** [{title[:35]}...]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {cb.from_user.mention}",
             reply_markup=keyboard,
         )
     else:
@@ -884,7 +884,7 @@ async def lol_cb(b, cb):
             chat_id,
             photo="final.png",
             caption=f"🏷 **Name:** [{title[:70]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n"
-            + f"🎧 **Request by:** {r_by.mention()}",
+            + f"🎧 **Request by:** {cb.from_user.mention}",
             reply_markup=keyboard,
         )
     if path.exists("final.png"):
