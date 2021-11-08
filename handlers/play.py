@@ -332,33 +332,34 @@ async def m_cb(b, cb):
 
     cb.message.reply_markup.inline_keyboard[1][0].callback_data
     if type_ == "pause":
-        if (chet_id not in callsmusic.pytgcalls.active_calls) or (
-            callsmusic.pytgcalls.active_calls[chet_id] == "paused"
-        ):
-            await cb.answer(
-                "userbot is not connected to voice chat.", show_alert=True
-            )
-        else:
-            await callsmusic.pytgcalls.pause_stream(chet_id)
-
-            await cb.answer("music paused")
-            await cb.message.edit(
-                updated_stats(m_chat, qeue), reply_markup=r_ply("play")
-            )
+        ACTV_CALLS = []
+        for x in callsmusic.pytgcalls.active_calls:
+            ACTV_CALLS.append(int(x.chet_id))
+            if int(chet_id) not in ACTV_CALLS:
+                await cb.answer(
+                    "userbot is not connected to voice chat.", show_alert=True
+                )
+            else:
+                await callsmusic.pytgcalls.pause_stream(chet_id)
+                await cb.answer("music paused")
+                await cb.message.edit(
+                    updated_stats(m_chat, qeue), reply_markup=r_ply("play")
+                )
 
     elif type_ == "play":
-        if (chet_id not in callsmusic.pytgcalls.active_calls) or (
-            callsmusic.pytgcalls.active_calls[chet_id] == "playing"
-        ):
-            await cb.answer(
-                "userbot is not connected to voice chat.", show_alert=True
-            )
-        else:
-            await callsmusic.pytgcalls.resume_stream(chet_id)
-            await cb.answer("music resumed")
-            await cb.message.edit(
-                updated_stats(m_chat, qeue), reply_markup=r_ply("pause")
-            )
+        ACTV_CALLS = []
+        for x in callsmusic.pytgcalls.active_calls:
+            ACTV_CALLS.append(int(x.chet_id))
+            if int(chet_id) not in ACTV_CALLS:
+                await cb.answer(
+                    "userbot is not connected to voice chat.", show_alert=True
+                )
+            else:
+                await callsmusic.pytgcalls.resume_stream(chet_id)
+                await cb.answer("music resumed")
+                await cb.message.edit(
+                    updated_stats(m_chat, qeue), reply_markup=r_ply("pause")
+                )
 
     elif type_ == "playlist":
         queue = que.get(cb.message.chat.id)
@@ -385,28 +386,29 @@ async def m_cb(b, cb):
 
     elif type_ == "resume":
         psn = "▶ music playback has resumed"
-        if (chet_id not in callsmusic.pytgcalls.active_calls) or (
-            callsmusic.pytgcalls.active_calls[chet_id] == "playing"
-        ):
-            await cb.answer(
-                "voice chat is not connected or already playing", show_alert=True
-            )
-        else:
-            await callsmusic.pytgcalls.resume_stream(chet_id)
-            await cb.message.edit(psn, reply_markup=keyboard)
+        ACTV_CALLS = []
+        for x in callsmusic.pytgcalls.active_calls:
+            ACTV_CALLS.append(int(x.chet_id))
+            if int(chet_id) not in ACTV_CALLS:
+                await cb.answer(
+                    "voice chat is not connected or already playing", show_alert=True
+                )
+            else:
+                await callsmusic.pytgcalls.resume_stream(chet_id)
+                await cb.message.edit(psn, reply_markup=keyboard)
 
     elif type_ == "puse":
         spn = "⏸ music playback has paused"
-        if (chet_id not in callsmusic.pytgcalls.active_calls) or (
-            callsmusic.pytgcalls.active_calls[chet_id] == "paused"
-        ):
-            await cb.answer(
-                "voice chat is not connected or already paused", show_alert=True
-            )
-        else:
-            await callsmusic.pytgcalls.pause_stream(chet_id)
-
-            await cb.message.edit(spn, reply_markup=keyboard)
+        ACTV_CALLS = []
+        for x in callsmusic.pytgcalls.active_calls:
+            ACTV_CALLS.append(int(x.chet_id))
+            if int(chet_id) not in ACTV_CALLS:
+                await cb.answer(
+                    "voice chat is not connected or already paused", show_alert=True
+                )
+            else:
+                await callsmusic.pytgcalls.pause_stream(chet_id)
+                await cb.message.edit(spn, reply_markup=keyboard)
 
     elif type_ == "cls":
         await cb.message.delete()
@@ -434,47 +436,56 @@ async def m_cb(b, cb):
         mmk = "⏭ you skipped to the next music"
         if qeue:
             qeue.pop(0)
-        if chet_id not in callsmusic.pytgcalls.active_calls:
-            await cb.answer(
-                "assistant is not connected to voice chat !", show_alert=True
-            )
-        else:
-            callsmusic.queues.task_done(chet_id)
-
-            if callsmusic.queues.is_empty(chet_id):
-                await callsmusic.pytgcalls.leave_group_call(chet_id)
-
-                await cb.message.edit(
-                    nmq,
-                    reply_markup=InlineKeyboardMarkup(
-                        [[InlineKeyboardButton("🗑 Close", callback_data="close")]]
-                    ),
+        ACTV_CALLS = []
+        for x in callsmusic.pytgcalls.active_calls:
+            ACTV_CALLS.append(int(x.chet_id))
+            if int(chet_id) not in ACTV_CALLS:
+                await cb.answer(
+                    "assistant is not connected to voice chat !", show_alert=True
                 )
             else:
-                await callsmusic.pytgcalls.change_stream(
-                    chet_id, callsmusic.queues.get(chet_id)["file"]
-                )
-                await cb.message.edit(mmk, reply_markup=keyboard)
+                callsmusic.queues.task_done(chet_id)
+                
+                if callsmusic.queues.is_empty(chet_id):
+                    await callsmusic.pytgcalls.leave_group_call(chet_id)
+                    
+                    await cb.message.edit(
+                        nmq,
+                        reply_markup=InlineKeyboardMarkup(
+                            [[InlineKeyboardButton("🗑 Close", callback_data="close")]]
+                        ),
+                    )
+                else:
+                    await callsmusic.pytgcalls.change_stream(
+                        chet_id, 
+                        InputAudioStream(
+                            callsmusic.queues.get(chet_id)["file"]
+                        ),
+                    )
+                    await cb.message.edit(mmk, reply_markup=keyboard)
 
     elif type_ == "leave":
         hps = "✅ **the music playback has ended**"
-        if chet_id in callsmusic.pytgcalls.active_calls:
-            try:
-                callsmusic.queues.clear(chet_id)
-            except QueueEmpty:
-                pass
-
-            await callsmusic.pytgcalls.leave_group_call(chet_id)
-            await cb.message.edit(
+        ACTV_CALLS = []
+        for x in callsmusic.pytgcalls.active_calls:
+            ACTV_CALLS.append(int(x.chet_id))
+            if int(chet_id) not in ACTV_CALLS:
+                try:
+                    callsmusic.queues.clear(chet_id)
+                except QueueEmpty:
+                    pass
+                
+                await callsmusic.pytgcalls.leave_group_call(chet_id)
+                await cb.message.edit(
                     hps,
                     reply_markup=InlineKeyboardMarkup(
                         [[InlineKeyboardButton("🗑 Close", callback_data="close")]]
                     ),
                 )
-        else:
-            await cb.answer(
-                "userbot is not connected to voice chat.", show_alert=True
-            )
+            else:
+                await cb.answer(
+                    "userbot is not connected to voice chat.", show_alert=True
+                )
 
 
 @Client.on_message(command(["play", f"play@{BOT_USERNAME}"]) & other_filters)
@@ -657,7 +668,13 @@ async def play(_, message: Message):
             toxxt = "\n"
             j = 0
             user = user_name
-            emojilist = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣"]
+            emojilist = [
+                "1️⃣", 
+                "2️⃣", 
+                "3️⃣", 
+                "4️⃣", 
+                "5️⃣",
+            ]
             while j < 5:
                 toxxt += f"{emojilist[j]} [{results[j]['title'][:25]}...](https://youtube.com{results[j]['url_suffix']})\n"
                 toxxt += f" ├ 💡 **Duration** - `{results[j]['duration']}`\n"
