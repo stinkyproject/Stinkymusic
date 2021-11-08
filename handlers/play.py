@@ -29,17 +29,20 @@ from helpers.channelmusic import get_chat_id
 from helpers.chattitle import CHAT_TITLE
 from helpers.decorators import authorized_users_only
 from helpers.filters import command, other_filters
-from helpers.gets import get_file_name
+from helpers.gets import get_url, get_file_name
 from PIL import Image, ImageDraw, ImageFont
 from pyrogram import Client, filters
 from pyrogram.errors import UserAlreadyParticipant
+from pytgcalls.types.input_stream import InputAudioStream
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from youtube_search import YoutubeSearch
 
-aiohttpsession = aiohttp.ClientSession()
+# plus
+
 chat_id = None
-useer = "NaN"
 DISABLED_GROUPS = []
+useer = "NaN"
+
 
 
 def cb_admin_check(func: Callable) -> Callable:
@@ -336,7 +339,7 @@ async def m_cb(b, cb):
                 "userbot is not connected to voice chat.", show_alert=True
             )
         else:
-            callsmusic.pytgcalls.pause_stream(chet_id)
+            await callsmusic.pytgcalls.pause_stream(chet_id)
 
             await cb.answer("music paused")
             await cb.message.edit(
@@ -351,7 +354,7 @@ async def m_cb(b, cb):
                 "userbot is not connected to voice chat.", show_alert=True
             )
         else:
-            callsmusic.pytgcalls.resume_stream(chet_id)
+            await callsmusic.pytgcalls.resume_stream(chet_id)
             await cb.answer("music resumed")
             await cb.message.edit(
                 updated_stats(m_chat, qeue), reply_markup=r_ply("pause")
@@ -389,7 +392,7 @@ async def m_cb(b, cb):
                 "voice chat is not connected or already playing", show_alert=True
             )
         else:
-            callsmusic.pytgcalls.resume_stream(chet_id)
+            await callsmusic.pytgcalls.resume_stream(chet_id)
             await cb.message.edit(psn, reply_markup=keyboard)
 
     elif type_ == "puse":
@@ -401,7 +404,7 @@ async def m_cb(b, cb):
                 "voice chat is not connected or already paused", show_alert=True
             )
         else:
-            callsmusic.pytgcalls.pause_stream(chet_id)
+            await callsmusic.pytgcalls.pause_stream(chet_id)
 
             await cb.message.edit(spn, reply_markup=keyboard)
 
@@ -439,7 +442,7 @@ async def m_cb(b, cb):
             callsmusic.queues.task_done(chet_id)
 
             if callsmusic.queues.is_empty(chet_id):
-                callsmusic.pytgcalls.leave_group_call(chet_id)
+                await callsmusic.pytgcalls.leave_group_call(chet_id)
 
                 await cb.message.edit(
                     nmq,
@@ -448,7 +451,7 @@ async def m_cb(b, cb):
                     ),
                 )
             else:
-                callsmusic.pytgcalls.change_stream(
+                await callsmusic.pytgcalls.change_stream(
                     chet_id, callsmusic.queues.get(chet_id)["file"]
                 )
                 await cb.message.edit(mmk, reply_markup=keyboard)
@@ -461,7 +464,7 @@ async def m_cb(b, cb):
             except QueueEmpty:
                 pass
 
-            callsmusic.pytgcalls.leave_group_call(chet_id)
+            await callsmusic.pytgcalls.leave_group_call(chet_id)
             await cb.message.edit(
                     hps,
                     reply_markup=InlineKeyboardMarkup(
@@ -732,9 +735,10 @@ async def play(_, message: Message):
             message.from_user.first_name
             await generate_cover(title, thumbnail, ctitle)
             file_path = await converter.convert(youtube.download(url))
-    chat_id = get_chat_id(message.chat)
-    if chat_id in callsmusic.pytgcalls.active_calls:
-        position = await queues.put(chat_id, file=file_path)
+    for x in callsmusic.pytgcalls.active_calls:
+        ACTV_CALLS.append(int(x.chat_id))
+    if chat_id in ACTV_CALLS:
+        position = await queues.put(chat_id, InputAudioStream(file_path))
         qeue = que.get(chat_id)
         s_name = title
         r_by = message.from_user
@@ -757,7 +761,7 @@ async def play(_, message: Message):
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
         try:
-            callsmusic.pytgcalls.join_group_call(chat_id, file_path)
+            await callsmusic.pytgcalls.join_group_call(chat_id, InputAudioStream(file_path))
         except:
             await lel.edit(
                 "😕 **voice chat not found**\n\n» please turn on the voice chat first"
@@ -849,7 +853,9 @@ async def lol_cb(b, cb):
     )
     await generate_cover(title, thumbnail, ctitle)
     file_path = await converter.convert(youtube.download(url))
-    if chat_id in callsmusic.pytgcalls.active_calls:
+    for x in callsmusic.pytgcalls.active_calls:
+        ACTV_CALLS.append(int(x.chat_id))
+    if chat_id in ACTV_CALLS:
         position = await queues.put(chat_id, file=file_path)
         qeue = que.get(chat_id)
         s_name = title
@@ -878,7 +884,7 @@ async def lol_cb(b, cb):
         loc = file_path
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
-        callsmusic.pytgcalls.join_group_call(chat_id, file_path)
+        await callsmusic.pytgcalls.join_group_call(chat_id, InputAudioStream(file_path))
         await cb.message.delete()
         await b.send_photo(
             chat_id,
@@ -1009,8 +1015,10 @@ async def ytplay(_, message: Message):
     )
     await generate_cover(title, thumbnail, ctitle)
     file_path = await converter.convert(youtube.download(url))
-    chat_id = get_chat_id(message.chat)
-    if chat_id in callsmusic.pytgcalls.active_calls:
+    ACTV_CALLS = []
+    for x in callsmusic.pytgcalls.active_calls:
+        ACTV_CALLS.append(int(x.chat_id))
+    if int(message.chat.id) in ACTV_CALLS:
         position = await queues.put(chat_id, file=file_path)
         qeue = que.get(chat_id)
         s_name = title
@@ -1034,7 +1042,7 @@ async def ytplay(_, message: Message):
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
         try:
-            callsmusic.pytgcalls.join_group_call(chat_id, file_path)
+            await callsmusic.pytgcalls.join_group_call(chat_id, InputAudioStream(file_path))
         except:
             await lel.edit(
                 "😕 **voice chat not found**\n\n» please turn on the voice chat first"
