@@ -2,7 +2,7 @@ tgcrypto
 git+https://github.com/pyrogram/pyrogram@master
 git+https://github.com/yt-dlp/yt-dlp@master
 youtube-search-python
-py-tgcalls==0.8.1rc1
+py-tgcalls
 httpx==0.14.2
 python-dotenv
 requests
@@ -19,3 +19,4 @@ wget
 motor
 dnspython
 heroku3
+gitpython
