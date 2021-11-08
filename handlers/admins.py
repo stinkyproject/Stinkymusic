@@ -227,7 +227,7 @@ async def delcmdc(_, message: Message):
 async def cbpause(_, query: CallbackQuery):
     chat_id = get_chat_id(query.message.chat)
     ACTV_CALL = []
-    for x in callsmusic.pytgcalls.active_calls:]
+    for x in callsmusic.pytgcalls.active_calls:
         ACTV_CALL.append(int(x.chat_id))
         if int(chat_id) not in ACTV_CALL:
             await query.edit_message_text(
