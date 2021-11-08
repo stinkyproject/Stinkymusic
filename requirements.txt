@@ -1,9 +1,9 @@
 tgcrypto
 git+https://github.com/pyrogram/pyrogram@master
 git+https://github.com/yt-dlp/yt-dlp@master
-youtube-search-python==1.4.9
+youtube-search-python
 py-tgcalls==0.8.1rc1
-httpx==0.13.3
+httpx==0.14.2
 python-dotenv
 requests
 aiohttp
