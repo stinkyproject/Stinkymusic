@@ -9,7 +9,6 @@ aiohttp
 aiofiles
 asyncio
 youtube-search
-search-engine-parser
 ffmpeg-python
 pillow
 future
