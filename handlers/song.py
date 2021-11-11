@@ -2,7 +2,6 @@
 
 from __future__ import unicode_literals
 
-import json
 import asyncio
 import math
 import os
@@ -42,7 +41,7 @@ def song(_, message):
     m = message.reply("🔎 finding song...")
     ydl_ops = {"format": "bestaudio[ext=m4a]"}
     try:
-        results = YoutubeSearch(query, max_results=1).to_json()
+        results = YoutubeSearch(query, max_results=1).to_dict()
         link = f"https://youtube.com{results[0]['url_suffix']}"
         title = results[0]["title"][:40]
         thumbnail = results[0]["thumbnails"][0]
@@ -230,7 +229,7 @@ async def vsong(client, message):
     }
     query = " ".join(message.command[1:])
     try: 
-        results = YoutubeSearch(query, max_results=5).to_json()
+        results = YoutubeSearch(query, max_results=5).to_dict()
         link = f"https://youtube.com{results[0]['url_suffix']}"
         title = results[0]["title"][:40]
         thumbnail = results[0]["thumbnails"][0]
