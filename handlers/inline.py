@@ -22,7 +22,7 @@ async def inline(client: Client, query: InlineQuery):
             cache_time=0,
         )
     else:
-        results = YoutubeSearch(search_query, limit=10).to_json()
+        results = YoutubeSearch(search_query, limit=10).to_dict()
         
         answers.append(
             InlineQueryResultArticle(
