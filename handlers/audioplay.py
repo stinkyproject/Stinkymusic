@@ -16,6 +16,7 @@ from helpers.filters import command, other_filters
 from helpers.gets import get_file_name
 from pyrogram import Client
 from pytgcalls.types.input_stream import InputAudioStream
+from pytgcalls.types.input_stream import InputStream
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
 
@@ -53,18 +54,26 @@ async def stream(_, message: Message):
         if not path.isfile(path.join("downloads", file_name))
         else file_name
     )
+    chat_id = message.chat.id
     ACTV_CALLS = []
     for x in callsmusic.pytgcalls.active_calls:
         ACTV_CALLS.append(int(x.chat_id))    
-    if message.chat.id in ACTV_CALLS:
-        position = await queues.put(message.chat.id, file=file_path)
+    if chat_id in ACTV_CALLS:
+        position = await queues.put(chat_id, file=file_path)
         await message.reply_photo(
             photo=f"{QUE_IMG}",
             caption=f"💡 **Track added to queue »** `{position}`\n\n🏷 **Name:** {title[:50]}\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {costumer}",
             reply_markup=keyboard,
         )
     else:
-        await callsmusic.pytgcalls.join_group_call(message.chat.id, InputAudioStream(file_path)) 
+        await callsmusic.pytgcalls.join_group_call(
+            chat_id, 
+            InputStream(
+                InputAudioStream(
+                    file_path,
+                ),
+            ),
+        )
         await message.reply_photo(
             photo=f"{AUD_IMG}",
             caption=f"🏷 **Name:** {title[:50]}\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n"
