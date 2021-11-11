@@ -1,10 +1,11 @@
+import json
 from pyrogram import Client, errors
 from pyrogram.types import (
     InlineQuery,
     InlineQueryResultArticle,
     InputTextMessageContent,
 )
-from youtubesearchpython import VideosSearch
+from youtube_search import YoutubeSearch
 
 
 @Client.on_inline_query()
@@ -21,9 +22,8 @@ async def inline(client: Client, query: InlineQuery):
             cache_time=0,
         )
     else:
-        search = VideosSearch(search_query, limit=50)
+        results = YoutubeSearch(search_query, limit=10).to_json()
 
-        for result in search.result()["result"]:
             answers.append(
                 InlineQueryResultArticle(
                     title=result["title"],
