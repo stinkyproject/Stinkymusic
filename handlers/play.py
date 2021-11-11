@@ -624,7 +624,7 @@ async def play(_, message: Message):
             url = f"https://youtube.com{results[0]['url_suffix']}"
             title = results[0]["title"][:70]
             thumbnail = results[0]["thumbnails"][0]
-            thumb_name = f"{title}.jpg"
+            thumb_name = f"{title}.png"
             ctitle = message.chat.title
             ctitle = await CHAT_TITLE(ctitle)
             thumb = requests.get(thumbnail, allow_redirects=True)
@@ -725,7 +725,7 @@ async def play(_, message: Message):
                 url = f"https://youtube.com{results[0]['url_suffix']}"
                 title = results[0]["title"][:70]
                 thumbnail = results[0]["thumbnails"][0]
-                thumb_name = f"{title}.jpg"
+                thumb_name = f"{title}.png"
                 ctitle = message.chat.title
                 ctitle = await CHAT_TITLE(ctitle)
                 thumb = requests.get(thumbnail, allow_redirects=True)
@@ -865,7 +865,7 @@ async def lol_cb(b, cb):
     except:
         pass
     try:
-        thumb_name = f"{title}.jpg"
+        thumb_name = f"{title}.png"
         ctitle = cb.message.chat.title
         ctitle = await CHAT_TITLE(ctitle)
         thumb = requests.get(thumbnail, allow_redirects=True)
@@ -1015,7 +1015,7 @@ async def ytplay(_, message: Message):
         url = f"https://youtube.com{results[0]['url_suffix']}"
         title = results[0]["title"][:70]
         thumbnail = results[0]["thumbnails"][0]
-        thumb_name = f"{title}.jpg"
+        thumb_name = f"{title}.png"
         ctitle = message.chat.title
         ctitle = await CHAT_TITLE(ctitle)
         thumb = requests.get(thumbnail, allow_redirects=True)
