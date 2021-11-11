@@ -1,4 +1,4 @@
-# For Better Results Please Deploy vps
+# For Better Results Please Deploy on Vps
 
 
 <p align="center"><a href="https://t.me/VeezMusicBot"><img src="https://github.com/levina-lab/VeezMusic/raw/main/etc/veezlogo.png"></a></p>
