@@ -1,6 +1,5 @@
 # (C) 2021 VeezMusic-Project
 
-from handlers.play import cb_admin_check
 from helpers.decorators import authorized_users_only
 from pyrogram import Client, filters
 from pyrogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
@@ -214,8 +213,10 @@ async def close(_, query: CallbackQuery):
 
 
 @Client.on_callback_query(filters.regex("cbback"))
-@cb_admin_check
 async def cbback(_, query: CallbackQuery):
+    a = await _.get_chat_member(query.message.chat.id, query.from_user.id)
+    if not a.can_manage_voice_chats:
+        return await query.answer("💡 only admin can tap this button !", show_alert=True)
     await query.edit_message_text(
         "**💡 here is the control menu of bot :**",
         reply_markup=InlineKeyboardMarkup(
@@ -236,9 +237,10 @@ async def cbback(_, query: CallbackQuery):
 
 
 @Client.on_callback_query(filters.regex("cbdelcmds"))
-@cb_admin_check
-@authorized_users_only
 async def cbdelcmds(_, query: CallbackQuery):
+    a = await _.get_chat_member(query.message.chat.id, query.from_user.id)
+    if not a.can_manage_voice_chats:
+        return await query.answer("💡 only admin can tap this button !", show_alert=True)
     await query.edit_message_text(
         f"""📚 **this is the feature information:**
         
