@@ -112,9 +112,11 @@ python3 main.py # run the bot.
 - [Levina](https://github.com/levina-lab): Dev
 - [Tofik](https://github.com/tofikdn): Dev
 - [Zxce3](https://github.com/Zxce3): Dev
-- [Hyoka-XD](https://github.com/PratheekXD) Contributor
-- [Rajkumar](https://github.com/Awesome-RJ) Contributor
-- [Laky](https://github.com/Laky-64) & [Andrew](https://github.com/AndrewLaneX): PyTgCalls
+- [Hunter-XDD](https://github.com/HUnter-XDD): Dev
+- [Hyoka-XD](https://github.com/PratheekXD): Contributor
+- [Rajkumar](https://github.com/Awesome-RJ): Contributor
+- [Laky](https://github.com/Laky-64): PyTgCalls
+- [Dan](https://github.com/delivrance): Pyrogram
 - [Original Repo](https://github.com/callsmusic/callsmusic) CallsMusic
 - [Veez Music Bot](https://t.me/veezmusicbot) Our Music Bot
 - [RojSerBest](https://github.com/rojserbest) CallsMusic Developer
