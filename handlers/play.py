@@ -33,7 +33,9 @@ from helpers.gets import get_url, get_file_name
 from PIL import Image, ImageDraw, ImageFont
 from pyrogram import Client, filters
 from pyrogram.errors import UserAlreadyParticipant
+from pytgcalls import StreamType
 from pytgcalls.types.input_stream import InputAudioStream
+from pytgcalls.types.input_stream import InputStream
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from youtube_search import YoutubeSearch
 
@@ -459,9 +461,11 @@ async def m_cb(b, cb):
                 )
             else:
                 await callsmusic.pytgcalls.change_stream(
-                    chet_id,
-                    InputAudioStream(
-                        callsmusic.queues.get(chet_id)["file"],
+                    chet_id, 
+                    InputStream(
+                        InputAudioStream(
+                            callsmusic.queues.get(chet_id)["file"],
+                        ),
                     ),
                 )
                 await cb.message.edit(mmk, reply_markup=keyboard)
@@ -753,10 +757,11 @@ async def play(_, message: Message):
             message.from_user.first_name
             await generate_cover(title, thumbnail, ctitle)
             file_path = await converter.convert(youtube.download(url))
+            ACTV_CALLS = []
     for x in callsmusic.pytgcalls.active_calls:
         ACTV_CALLS.append(int(x.chat_id))
     if chat_id in ACTV_CALLS:
-        position = await queues.put(chat_id, InputAudioStream(file_path))
+        position = await queues.put(chat_id, file_path)
         qeue = que.get(chat_id)
         s_name = title
         r_by = message.from_user
@@ -779,7 +784,15 @@ async def play(_, message: Message):
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
         try:
-            await callsmusic.pytgcalls.join_group_call(chat_id, InputAudioStream(file_path))
+            await callsmusic.pytgcalls.join_group_call(
+                chat_id, 
+                InputStream(
+                    InputAudioStream(
+                        file_path,
+                    ),
+                ),
+                stream_type=StreamType().local_stream,
+            )
         except Exception as e:
             await lel.edit(
                 "😕 **voice chat not found**\n\n» please turn on the voice chat first"
@@ -871,6 +884,7 @@ async def lol_cb(b, cb):
     )
     await generate_cover(title, thumbnail, ctitle)
     file_path = await converter.convert(youtube.download(url))
+    ACTV_CALLS = []
     for x in callsmusic.pytgcalls.active_calls:
         ACTV_CALLS.append(int(x.chat_id))
     if chat_id in ACTV_CALLS:
@@ -902,7 +916,15 @@ async def lol_cb(b, cb):
             loc = file_path
             appendable = [s_name, r_by, loc]
             qeue.append(appendable)
-            await callsmusic.pytgcalls.join_group_call(chat_id, InputAudioStream(file_path))
+            await callsmusic.pytgcalls.join_group_call(
+                chat_id, 
+                InputStream(
+                    InputAudioStream(
+                        file_path,
+                    ),
+                ),
+                stream_type=StreamType().local_stream,
+            )
             await cb.message.delete()
             await b.send_photo(
                 chat_id,
@@ -1060,7 +1082,15 @@ async def ytplay(_, message: Message):
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
         try:
-            await callsmusic.pytgcalls.join_group_call(chat_id, InputAudioStream(file_path))
+            await callsmusic.pytgcalls.join_group_call(
+                chat_id, 
+                InputStream(
+                    InputAudioStream(
+                        file_path,
+                    ),
+                ),
+                stream_type=StreamType().local_stream,
+            )
         except:
             await lel.edit(
                 "😕 **voice chat not found**\n\n» please turn on the voice chat first"
