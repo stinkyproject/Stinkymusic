@@ -37,12 +37,13 @@ async def inline(client: Client, query: InlineQuery):
             )
         )
         
-     try:
-        await query.answer(results=answers, cache_time=0)
-     except errors.QueryIdInvalid:
-        await query.answer(
-            results=answers,
-            cache_time=0,
-            switch_pm_text="Error: search timed out",
-            switch_pm_parameter="",
-        )
+        
+        try:
+            await query.answer(results=answers, cache_time=0)
+        except errors.QueryIdInvalid:
+            await query.answer(
+                results=answers,
+                cache_time=0,
+                switch_pm_text="Error: search timed out",
+                switch_pm_parameter="",
+            )
