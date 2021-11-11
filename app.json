@@ -2,7 +2,11 @@
     "name": "Veez Music Bot",
     "logo": "https://telegra.ph/file/9dd9b20abcda2d7bb6725.png",
     "description": "veez music allow you to stream music trought the telegram voice chat feature.",
-    "keywords": ["music", "voice chat", "telegram"],
+    "keywords": [
+        "music", 
+        "voice chat", 
+        "telegram"
+    ],
     "repository": "https://github.com/levina-lab/veezmusic",
     "stack": "container",
     "env": {
@@ -87,15 +91,22 @@
             "value": "VeezSupportGroup"
         }
     },
+    "addons": [],
     "buildpacks": [
-    {
-      "url": "heroku/python"
-    },
-    {   
-      "url": "heroku/nodejs"
-    },
-    {
-      "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git"
+        {
+            "url": "heroku/python"
+        },
+        {
+            "url": "heroku/nodejs"
+        },
+        {
+            "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git"
+        }
+    ],
+    "formation": {
+        "worker": {
+            "quantity": 1,
+            "size": "free"
+        }
     }
-  ]
 }
