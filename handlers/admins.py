@@ -12,6 +12,7 @@ from helpers.dbtools import delcmd_is_on, delcmd_off, delcmd_on, handle_user_sta
 from helpers.decorators import authorized_users_only, errors
 from helpers.filters import command, other_filters
 from pytgcalls.types.input_stream import InputAudioStream
+from pytgcalls.types.input_stream import InputStream
 from pyrogram import Client, filters
 from pyrogram.types import (
     CallbackQuery,
@@ -148,7 +149,12 @@ async def skip(_, message: Message):
             await callsmusic.pytgcalls.leave_group_call(chat_id)
         else:
             await callsmusic.pytgcalls.change_stream(
-                chat_id, InputAudioStream(callsmusic.queues.get(chat_id)["file"])
+                chat_id, 
+                InputStream(
+                    InputAudioStream(
+                        callsmusic.queues.get(chat_id)["file"],
+                    ),
+                ),
             )
                 
     qeue = que.get(chat_id)
@@ -300,7 +306,12 @@ async def cbskip(_, query: CallbackQuery):
             await callsmusic.pytgcalls.leave_group_call(chat_id)
         else:
             await callsmusic.pytgcalls.change_stream(
-                chat_id, InputAudioStream(queues.get(query.message.chat.id)["file"])
+                chat_id, 
+                InputStream(
+                    InputAudioStream(
+                        queues.get(query.message.chat.id)["file"],
+                    ),
+                ),
             )
 
     qeue = que.get(chat_id)
@@ -323,4 +334,3 @@ async def change_volume(client, message):
        await message.reply(f"✅ **volume set to:** ```{range}%```")
     except Exception as e:
        await message.reply(f"**error:** {e}")
-    
