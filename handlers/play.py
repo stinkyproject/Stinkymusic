@@ -865,7 +865,7 @@ async def lol_cb(b, cb):
     except:
         pass
     try:
-        thumb_name = f"{title}.png"
+        thumb_name = f"{title}.jpg"
         ctitle = cb.message.chat.title
         ctitle = await CHAT_TITLE(ctitle)
         thumb = requests.get(thumbnail, allow_redirects=True)
