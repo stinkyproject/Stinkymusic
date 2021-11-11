@@ -1,3 +1,4 @@
+import json
 import logging
 
 from config import BOT_USERNAME
@@ -9,7 +10,7 @@ from pyrogram.types import (
     InlineKeyboardMarkup,
     Message,
 )
-from youtubesearchpython import VideosSearch
+from youtube_search import YoutubeSearch
 
 logging.basicConfig(
     level=logging.DEBUG, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
@@ -37,7 +38,7 @@ async def ytsearch(_, message: Message):
             return
         query = message.text.split(None, 1)[1]
         m = await message.reply_text("🔎 **Searching...**")
-        results = VideosSearch(query, max_results=5)
+        results = YoutubeSearch(query, max_results=5).to_json()
         i = 0
         text = ""
         while i < 5:
