@@ -6,7 +6,6 @@ from callsmusic import callsmusic
 from callsmusic.queues import queues
 from config import BOT_USERNAME, que
 from cache.admins import admins
-from handlers.play import cb_admin_check
 from helpers.channelmusic import get_chat_id
 from helpers.dbtools import delcmd_is_on, delcmd_off, delcmd_on, handle_user_status
 from helpers.decorators import authorized_users_only, errors
@@ -228,8 +227,10 @@ async def delcmdc(_, message: Message):
 
 
 @Client.on_callback_query(filters.regex("cbpause"))
-@cb_admin_check
 async def cbpause(_, query: CallbackQuery):
+    a = await _.get_chat_member(query.message.chat.id, query.from_user.id)
+    if not a.can_manage_voice_chats:
+        return await query.answer("💡 only admin can tap this button !", show_alert=True)
     chat_id = get_chat_id(query.message.chat)
     ACTV_CALL = []
     for x in callsmusic.pytgcalls.active_calls:
@@ -246,8 +247,10 @@ async def cbpause(_, query: CallbackQuery):
 
 
 @Client.on_callback_query(filters.regex("cbresume"))
-@cb_admin_check
 async def cbresume(_, query: CallbackQuery):
+    a = await _.get_chat_member(query.message.chat.id, query.from_user.id)
+    if not a.can_manage_voice_chats:
+        return await query.answer("💡 only admin can tap this button !", show_alert=True)
     chat_id = get_chat_id(query.message.chat)
     ACTV_CALL = []
     for x in callsmusic.pytgcalls.active_calls:
@@ -264,8 +267,10 @@ async def cbresume(_, query: CallbackQuery):
 
 
 @Client.on_callback_query(filters.regex("cbend"))
-@cb_admin_check
 async def cbend(_, query: CallbackQuery):
+    a = await _.get_chat_member(query.message.chat.id, query.from_user.id)
+    if not a.can_manage_voice_chats:
+        return await query.answer("💡 only admin can tap this button !", show_alert=True)
     chat_id = get_chat_id(query.message.chat)
     ACTV_CALL = []
     for x in callsmusic.pytgcalls.active_calls:
@@ -288,9 +293,11 @@ async def cbend(_, query: CallbackQuery):
 
 
 @Client.on_callback_query(filters.regex("cbskip"))
-@cb_admin_check
 async def cbskip(_, query: CallbackQuery):
     global que
+    a = await _.get_chat_member(query.message.chat.id, query.from_user.id)
+    if not a.can_manage_voice_chats:
+        return await query.answer("💡 only admin can tap this button !", show_alert=True)
     chat_id = get_chat_id(query.message.chat)
     ACTV_CALLS = []
     for x in callsmusic.pytgcalls.active_calls:
