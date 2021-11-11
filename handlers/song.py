@@ -17,7 +17,7 @@ import yt_dlp
 from pyrogram import Client, filters
 from pyrogram.errors import FloodWait, MessageNotModified
 from pyrogram.types import Message
-from youtube_search import YoutubeSearch
+from youtubesearchpython import VideosSearch
 from yt_dlp import YoutubeDL
 
 from config import BOT_USERNAME as bn
@@ -41,7 +41,7 @@ def song(_, message):
     m = message.reply("🔎 finding song...")
     ydl_ops = {"format": "bestaudio[ext=m4a]"}
     try:
-        results = YoutubeSearch(query, max_results=1).to_dict()
+        results = VideosSearch(query, max_results=1).to_dict()
         link = f"https://youtube.com{results[0]['url_suffix']}"
         title = results[0]["title"][:40]
         thumbnail = results[0]["thumbnails"][0]
@@ -229,7 +229,7 @@ async def vsong(client, message):
     }
     query = " ".join(message.command[1:])
     try:
-        results = YoutubeSearch(query, max_results=1).to_dict()
+        results = VideosSearch(query, max_results=1).to_dict()
         link = f"https://youtube.com{results[0]['url_suffix']}"
         title = results[0]["title"][:40]
         thumbnail = results[0]["thumbnails"][0]
@@ -264,7 +264,7 @@ async def vsong(client, message):
         print(e)
 
 
-@Client.on_message(command(["lyric", f"lyric@{bn}"]))
+@Client.on_message(command(["lyrics", f"lyrics@{bn}"]))
 async def lyrics(_, message):
     try:
         if len(message.command) < 2:
