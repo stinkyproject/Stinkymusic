@@ -37,7 +37,7 @@ from pytgcalls import StreamType
 from pytgcalls.types.input_stream import InputAudioStream
 from pytgcalls.types.input_stream import InputStream
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
-from youtube_search import YoutubeSearch
+from youtubesearchpython import VideosSearch
 
 # plus
 
@@ -620,7 +620,7 @@ async def play(_, message: Message):
         await lel.edit("🔎 **searching...**")
         ydl_opts = {"format": "bestaudio/best"}
         try:
-            results = YoutubeSearch(query, max_results=1).to_dict()
+            results = VideosSearch(query, max_results=1)
             url = f"https://youtube.com{results[0]['url_suffix']}"
             title = results[0]["title"][:70]
             thumbnail = results[0]["thumbnails"][0]
@@ -664,7 +664,7 @@ async def play(_, message: Message):
         ydl_opts = {"format": "bestaudio/best"}
 
         try:
-            results = YoutubeSearch(query, max_results=5).to_dict()
+            results = VideosSearch(query, max_results=5)
         except:
             await lel.edit(
                 "😕 **song name not detected**\n\n» **please provide the name of the song you want to play**"
@@ -840,7 +840,7 @@ async def lol_cb(b, cb):
         cb.message.reply_to_message.from_user.first_name
     except:
         cb.message.from_user.first_name
-    results = YoutubeSearch(query, max_results=5).to_dict()
+    results = VideosSearch(query, max_results=5)
     resultss = results[x]["url_suffix"]
     title = results[x]["title"][:70]
     thumbnail = results[x]["thumbnails"][0]
@@ -1005,7 +1005,7 @@ async def ytplay(_, message: Message):
     await lel.edit("🔄 **connecting to vc...**")
     ydl_opts = {"format": "bestaudio/best"}
     try:
-        results = YoutubeSearch(query, max_results=1).to_dict()
+        results = VideosSearch(query, max_results=1)
         url = f"https://youtube.com{results[0]['url_suffix']}"
         title = results[0]["title"][:70]
         thumbnail = results[0]["thumbnails"][0]
