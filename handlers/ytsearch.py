@@ -9,7 +9,7 @@ from pyrogram.types import (
     InlineKeyboardMarkup,
     Message,
 )
-from youtube_search import YoutubeSearch
+from youtubesearchpython import VideosSearch
 
 logging.basicConfig(
     level=logging.DEBUG, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
@@ -37,7 +37,7 @@ async def ytsearch(_, message: Message):
             return
         query = message.text.split(None, 1)[1]
         m = await message.reply_text("🔎 **Searching...**")
-        results = YoutubeSearch(query, max_results=5).to_dict()
+        results = VideosSearch(query, max_results=5)
         i = 0
         text = ""
         while i < 5:
