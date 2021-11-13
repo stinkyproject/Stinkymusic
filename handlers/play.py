@@ -334,7 +334,7 @@ async def m_cb(b, cb):
 
     cb.message.reply_markup.inline_keyboard[1][0].callback_data
     if type_ == "pause":
-        ACTV_CALLS = {}
+        ACTV_CALLS = []
         for x in callsmusic.pytgcalls.active_calls:
             ACTV_CALLS.append(int(x.chet_id))
         if int(chet_id) not in ACTV_CALLS:
@@ -350,7 +350,7 @@ async def m_cb(b, cb):
             )
 
     elif type_ == "play":
-        ACTV_CALLS = {}
+        ACTV_CALLS = []
         for x in callsmusic.pytgcalls.active_calls:
             ACTV_CALLS.append(int(x.chet_id))
         if int(chet_id) not in ACTV_CALLS:
@@ -390,7 +390,7 @@ async def m_cb(b, cb):
 
     elif type_ == "resume":
         psn = "▶ music playback has resumed"
-        ACTV_CALLS = {}
+        ACTV_CALLS = []
         for x in callsmusic.pytgcalls.active_calls:
             ACTV_CALLS.append(int(x.chet_id))
         if int(chet_id) not in ACTV_CALLS:
@@ -403,7 +403,7 @@ async def m_cb(b, cb):
 
     elif type_ == "puse":
         spn = "⏸ music playback has paused"
-        ACTV_CALLS = {}
+        ACTV_CALLS = []
         for x in callsmusic.pytgcalls.active_calls:
             ACTV_CALLS.append(int(x.chet_id))
         if int(chet_id) not in ACTV_CALLS:
@@ -440,7 +440,7 @@ async def m_cb(b, cb):
         mmk = "⏭ you skipped to the next music"
         if qeue:
             qeue.pop(0)
-        ACTV_CALLS = {}
+        ACTV_CALLS = []
         for x in callsmusic.pytgcalls.active_calls:
             ACTV_CALLS.append(int(x.chet_id))
         if int(chet_id) not in ACTV_CALLS:
@@ -472,7 +472,7 @@ async def m_cb(b, cb):
 
     elif type_ == "leave":
         hps = "✅ **the music playback has ended**"
-        ACTV_CALLS = {}
+        ACTV_CALLS = []
         for x in callsmusic.pytgcalls.active_calls:
             ACTV_CALLS.append(int(x.chet_id))
         if int(chet_id) not in ACTV_CALLS:
@@ -752,7 +752,7 @@ async def play(_, message: Message):
             await generate_cover(title, thumbnail, ctitle)
             
     file_path = await converter.convert(youtube.download(url))
-    ACTV_CALLS = {}
+    ACTV_CALLS = []
     for x in callsmusic.pytgcalls.active_calls:
         ACTV_CALLS.append(int(x.chat_id))
     if chat_id in ACTV_CALLS:
@@ -879,7 +879,7 @@ async def lol_cb(b, cb):
     )
     await generate_cover(title, thumbnail, ctitle)
     file_path = await converter.convert(youtube.download(url))
-    ACTV_CALLS = {}
+    ACTV_CALLS = []
     for x in callsmusic.pytgcalls.active_calls:
         ACTV_CALLS.append(int(x.chat_id))
     if chat_id in ACTV_CALLS:
@@ -1050,7 +1050,7 @@ async def ytplay(_, message: Message):
     )
     await generate_cover(title, thumbnail, ctitle)
     file_path = await converter.convert(youtube.download(url))
-    ACTV_CALLS = {}
+    ACTV_CALLS = []
     for x in callsmusic.pytgcalls.active_calls:
         ACTV_CALLS.append(int(x.chat_id))
     if int(message.chat.id) in ACTV_CALLS:
