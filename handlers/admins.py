@@ -99,7 +99,7 @@ async def pause(_, message: Message):
 @authorized_users_only
 async def resume(_, message: Message):
     chat_id = get_chat_id(message.chat)
-    ACTV_CALL = []
+    ACTV_CALL = {}
     for x in callsmusic.pytgcalls.active_calls:
         ACTV_CALL.append(int(x.chat_id))
     if int(chat_id) not in ACTV_CALL:
@@ -116,7 +116,7 @@ async def resume(_, message: Message):
 @authorized_users_only
 async def stop(_, message: Message):
     chat_id = get_chat_id(message.chat)
-    ACTV_CALL = []
+    ACTV_CALL = {}
     for x in callsmusic.pytgcalls.active_calls:
         ACTV_CALL.append(int(x.chat_id))
     if int(chat_id) not in ACTV_CALL:
@@ -136,7 +136,7 @@ async def stop(_, message: Message):
 async def skip(_, message: Message):
     global que
     chat_id = message.chat.id
-    ACTV_CALLS = []
+    ACTV_CALLS = {}
     for x in callsmusic.pytgcalls.active_calls:
         ACTV_CALLS.append(int(x.chat_id))
     if int(chat_id) not in ACTV_CALLS:
@@ -232,7 +232,7 @@ async def cbpause(_, query: CallbackQuery):
     if not a.can_manage_voice_chats:
         return await query.answer("💡 only admin can tap this button !", show_alert=True)
     chat_id = get_chat_id(query.message.chat)
-    ACTV_CALL = []
+    ACTV_CALL = {}
     for x in callsmusic.pytgcalls.active_calls:
         ACTV_CALL.append(int(x.chat_id))
     if int(chat_id) not in ACTV_CALL:
@@ -252,7 +252,7 @@ async def cbresume(_, query: CallbackQuery):
     if not a.can_manage_voice_chats:
         return await query.answer("💡 only admin can tap this button !", show_alert=True)
     chat_id = get_chat_id(query.message.chat)
-    ACTV_CALL = []
+    ACTV_CALL = {}
     for x in callsmusic.pytgcalls.active_calls:
         ACTV_CALL.append(int(x.chat_id))
     if int(chat_id) not in ACTV_CALL:
@@ -272,7 +272,7 @@ async def cbend(_, query: CallbackQuery):
     if not a.can_manage_voice_chats:
         return await query.answer("💡 only admin can tap this button !", show_alert=True)
     chat_id = get_chat_id(query.message.chat)
-    ACTV_CALL = []
+    ACTV_CALL = {}
     for x in callsmusic.pytgcalls.active_calls:
         ACTV_CALL.append(int(x.chat_id))
     if int(chat_id) not in ACTV_CALL:
@@ -299,7 +299,7 @@ async def cbskip(_, query: CallbackQuery):
     if not a.can_manage_voice_chats:
         return await query.answer("💡 only admin can tap this button !", show_alert=True)
     chat_id = get_chat_id(query.message.chat)
-    ACTV_CALLS = []
+    ACTV_CALLS = {}
     for x in callsmusic.pytgcalls.active_calls:
         ACTV_CALLS.append(int(x.chat_id))
     if int(chat_id) not in ACTV_CALLS:
