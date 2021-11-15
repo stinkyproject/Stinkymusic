@@ -95,17 +95,17 @@ The easy way to host this bot, deploy to Heroku, Change the app country to Europ
 
 ```sh
 sudo apt update && apt upgrade -y
-sudo apt install git curl python3-pip ffmpeg -y
-pip3 install -U pip
-curl -sL https://deb.nodesource.com/setup_16.x | bash -
+sudo apt install python3-pip ffmpeg -y
+sudo curl -sL https://deb.nodesource.com/setup_17.x | sudo bash -
 sudo apt-get install -y nodejs
-npm i -g npm
+sudo npm i -g npm
 git clone https://github.com/levina-lab/VeezMusic # clone the repo.
 cd VeezMusic
-pip3 install -U -r requirements.txt
+sudo pip3 install --upgrade pip
+sudo pip3 install -U -r requirements.txt
 cp example.env .env # use vim to edit ENVs
 vim .env # fill up the ENVs (Steps: press i to enter in insert mode then edit the file. Press Esc to exit the editing mode then type :wq! and press Enter key to save the file).
-python3 main.py # run the bot.
+sudo python3 main.py # run the bot.
 ```
 
 ### Special Credits 💖
