@@ -16,9 +16,8 @@
 <h3>Requirements 📝</h3>
 
 - FFmpeg
-- NodeJS [nodesource.com](https://nodesource.com/)
-- Python 3.7 or higher
-- [PyTgCalls](https://github.com/pytgcalls/pytgcalls)
+- NodeJS [deb.nodesource.com](https://deb.nodesource.com/)
+- Python 3.8 or higher
 - [MongoDB](https://cloud.mongodb.com/)
 - [2nd Telegram Account](https://telegram.org/blog/themes-accounts#multiple-accounts) (needed for userbot)
 
