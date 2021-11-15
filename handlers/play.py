@@ -755,6 +755,7 @@ async def play(_, message: Message):
     ACTV_CALLS = []
     for x in callsmusic.pytgcalls.active_calls:
         ACTV_CALLS.append(int(x.chat_id))
+        chat_id = get_chat_id(message.chat)
     if chat_id in ACTV_CALLS:
         position = await queues.put(chat_id, file_path)
         qeue = que.get(chat_id)
