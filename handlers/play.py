@@ -771,13 +771,13 @@ async def play(_, message: Message):
         )
     else:
         chat_id = get_chat_id(message.chat)
-        que[chat_id] = {}
+        que[chat_id] = []
         qeue = que.get(chat_id)
         s_name = title
         r_by = message.from_user
         loc = file_path
         appendable = [s_name, r_by, loc]
-        qeue(appendable)
+        qeue.append(appendable)
         try:
             await callsmusic.pytgcalls.join_group_call(
                 chat_id, 
@@ -902,7 +902,7 @@ async def lol_cb(b, cb):
                 reply_markup=keyboard,
             )
     else:
-        que[chat_id] = {}
+        que[chat_id] = []
         qeue = que.get(chat_id)
         s_name = title
         try:
@@ -911,7 +911,7 @@ async def lol_cb(b, cb):
             r_by = cb.message.from_user
             loc = file_path
             appendable = [s_name, r_by, loc]
-            qeue(appendable)
+            qeue.append(appendable)
             await callsmusic.pytgcalls.join_group_call(
                 chat_id, 
                 InputStream(
@@ -1070,13 +1070,13 @@ async def ytplay(_, message: Message):
         )
     else:
         chat_id = get_chat_id(message.chat)
-        que[chat_id] = {}
+        que[chat_id] = []
         qeue = que.get(chat_id)
         s_name = title
         r_by = message.from_user
         loc = file_path
         appendable = [s_name, r_by, loc]
-        qeue(appendable)
+        qeue.append(appendable)
         try:
             await callsmusic.pytgcalls.join_group_call(
                 chat_id, 
