@@ -752,7 +752,6 @@ async def play(_, message: Message):
             await generate_cover(title, thumbnail, ctitle)
             
     file_path = await converter.convert(youtube.download(url))
-    chat_id = get_chat_id(message.chat)
     ACTV_CALLS = {}
     for x in callsmusic.pytgcalls.active_calls:
         ACTV_CALLS(int(x.chat_id))
@@ -1052,7 +1051,6 @@ async def ytplay(_, message: Message):
     )
     await generate_cover(title, thumbnail, ctitle)
     file_path = await converter.convert(youtube.download(url))
-    chat_id = get_chat_id(message.chat)
     ACTV_CALLS = {}
     for x in callsmusic.pytgcalls.active_calls:
         ACTV_CALLS(int(x.chat_id))
