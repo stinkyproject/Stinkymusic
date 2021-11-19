@@ -879,7 +879,6 @@ async def lol_cb(b, cb):
     )
     await generate_cover(title, thumbnail, ctitle)
     file_path = await converter.convert(youtube.download(url))
-    chat_id = get_chat_id(message.chat)
     ACTV_CALLS = {}
     for x in callsmusic.pytgcalls.active_calls:
         ACTV_CALLS(int(x.chat_id))
@@ -893,7 +892,7 @@ async def lol_cb(b, cb):
             r_by = cb.message.from_user
             loc = file_path
             appendable = [s_name, r_by, loc]
-            qeue(appendable)
+            qeue.append(appendable)
             await cb.message.delete()
             await b.send_photo(
                 chat_id,
