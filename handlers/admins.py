@@ -123,11 +123,8 @@ async def stop(_, message: Message):
         except QueueEmpty:
             pass
     elif:   
-        try:
-            await callsmusic.pytgcalls.leave_group_call(chat_id)
-            await message.reply_text("✅ **music playback has ended**")
-        except Exception as e:
-            await message.reply_text(f"🚫 **error:**\n\n`{e}`")
+        await callsmusic.pytgcalls.leave_group_call(chat_id)
+        await message.reply_text("✅ **music playback has ended**")
     else:
         await message.reply_text("❌ **no music is currently playing**")
 
@@ -276,14 +273,11 @@ async def cbend(_, query: CallbackQuery):
         except QueueEmpty:
             pass
     elif:
-        try:
-            await callsmusic.pytgcalls.leave_group_call(chat_id)
-            await query.edit_message_text(
-               "✅ the music queue has been cleared and successfully left voice chat",
-                reply_markup=BACK_BUTTON,
-            )
-        except Exception as e:
-            await message.reply_text(f"🚫 **error:**\n\n`{e}`")    
+        await callsmusic.pytgcalls.leave_group_call(chat_id)
+        await query.edit_message_text(
+            "✅ the music queue has been cleared and successfully left voice chat",
+            reply_markup=BACK_BUTTON,
+        )    
     else:
         await query.edit_message_text(
             "❌ **no music is currently playing**", reply_markup=BACK_BUTTON
