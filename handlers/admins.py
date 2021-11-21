@@ -20,6 +20,8 @@ from pyrogram.types import (
     Message,
 )
 
+ACTIVE_CALLS = {}
+
 
 @Client.on_message()
 async def _(bot: Client, cmd: Message):
@@ -82,16 +84,16 @@ async def controlset(_, message: Message):
 @authorized_users_only
 async def pause(_, message: Message):
     chat_id = get_chat_id(message.chat)
-    ACTV_CALL = {}
-    for x in callsmusic.pytgcalls.active_calls:
-        ACTV_CALL(int(x.chat_id))
-    if int(chat_id) not in ACTV_CALL:
+    if chat_id in ACTIVE_CALLS:
+        try:
+            await callsmusic.pytgcalls.pause_stream(chat_id)
+            await message.reply_text(
+                "⏸ **Track paused.**\n\n• **To resume the playback, use the**\n» /resume command."
+            )
+        except Exception as e:
+            await m.reply(f"🚫 **error:**\n\n`{e}`") 
+    else:    
         await message.reply_text("❌ **no music is currently playing**")
-    else:
-        await callsmusic.pytgcalls.pause_stream(chat_id)
-        await message.reply_text(
-            "⏸ **Track paused.**\n\n• **To resume the playback, use the**\n» /resume command."
-        )
 
 
 @Client.on_message(command(["resume", f"resume@{BOT_USERNAME}"]) & other_filters)
