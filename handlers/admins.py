@@ -122,7 +122,7 @@ async def stop(_, message: Message):
             queues.clear(chat_id)
         except QueueEmpty:
             pass
-    elif:   
+   
         await callsmusic.pytgcalls.leave_group_call(chat_id)
         await message.reply_text("✅ **music playback has ended**")
     else:
@@ -140,18 +140,18 @@ async def skip(_, message: Message):
             queues.task_done(chat_id)
         except Exception as e:
             await message.reply_text(f"🚫 **error:**\n\n`{e}`")
-    elif:
-        if queues.is_empty(chat_id):
-            await callsmusic.pytgcalls.leave_group_call(chat_id)
-        else:
-            await callsmusic.pytgcalls.change_stream(
-                chat_id, 
-                InputStream(
-                    InputAudioStream(
-                        callsmusic.queues.get(chat_id)["file"],
+            
+            if queues.is_empty(chat_id):
+                await callsmusic.pytgcalls.leave_group_call(chat_id)
+            else:
+                await callsmusic.pytgcalls.change_stream(
+                    chat_id, 
+                    InputStream(
+                        InputAudioStream(
+                            callsmusic.queues.get(chat_id)["file"],
+                        ),
                     ),
-                ),
-            )
+                )
     else:
         await message.reply_text("❌ **no music is currently playing**")
     
@@ -272,7 +272,7 @@ async def cbend(_, query: CallbackQuery):
             queues.clear(chat_id)
         except QueueEmpty:
             pass
-    elif:
+        
         await callsmusic.pytgcalls.leave_group_call(chat_id)
         await query.edit_message_text(
             "✅ the music queue has been cleared and successfully left voice chat",
@@ -295,18 +295,18 @@ async def cbskip(_, query: CallbackQuery):
             queues.task_done(chat_id)
         except Exception as e:
             await message.reply_text(f"🚫 **error:**\n\n`{e}`")
-    elif:
-        if queues.is_empty(chat_id):
-            await callsmusic.pytgcalls.leave_group_call(chat_id)
-        else:
-            await callsmusic.pytgcalls.change_stream(
-                chat_id, 
-                InputStream(
-                    InputAudioStream(
-                        queues.get(query.message.chat.id)["file"],
+            
+            if queues.is_empty(chat_id):
+                await callsmusic.pytgcalls.leave_group_call(chat_id)
+            else:
+                await callsmusic.pytgcalls.change_stream(
+                    chat_id, 
+                    InputStream(
+                        InputAudioStream(
+                            queues.get(query.message.chat.id)["file"],
+                        ),
                     ),
-                ),
-            )
+                )
     else:
         await query.edit_message_text(
             "❌ **no music is currently playing**", reply_markup=BACK_BUTTON
