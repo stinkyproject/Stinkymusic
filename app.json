@@ -39,7 +39,7 @@
             "value": ""
         },
         "BOT_USERNAME": {
-            "description": " @",
+            "description": "masukan username bot kalian tanpa @",
             "required": true,
             "value": "stinkymusiconly_bot"
         },
