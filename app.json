@@ -1,13 +1,13 @@
 {
-    "name": "Veez Music Bot",
-    "logo": "https://telegra.ph/file/9dd9b20abcda2d7bb6725.png",
+    "name": "Stinky Music Bot",
+    "logo": "https://telegra.ph/file/f4c153ac53ae686807521.jpg",
     "description": "veez music allow you to stream music trought the telegram voice chat feature.",
     "keywords": [
         "music", 
         "voice chat", 
         "telegram"
     ],
-    "repository": "https://github.com/levina-lab/veezmusic",
+    "repository": "https://github.com/Stinkyproject/Stinkymusic",
     "stack": "container",
     "env": {
         "SESSION_NAME": {
@@ -15,43 +15,43 @@
             "required": true
         },
         "BOT_TOKEN": {
-            "description": "fill with your bot token from @BotFather",
+            "description": "Buat bot terlebih dahulu di @BotFather",
             "required": true
         },
         "BOT_NAME": {
-            "description": "fill with your music bot name.",
+            "description": "Nama bot music kamu.",
             "required": true,
             "value": ""
         },
         "OWNER_ID": {
-            "description": "fill with your telegram id as the owner of the bot",
+            "description": "masukan ID akun telegram kamu",
             "required": true,
             "value": ""
         },
         "DATABASE_URL": {
-            "description": "fill with the mongodb url you get from cloud.mongodb.com",
+            "description": "masukan URL MongoDB ambil di.mongodb.com",
             "required": true,
             "value": ""
         },
         "LOG_CHANNEL": {
-            "description": "create a private channel and get the channel id (give the channel username/link to bot @username_to_id_bot and get the channel id), add your bot as admin to the channel too",
+            "description": "Bikin channel private/public dan masukan ID/@username Channel dibawah ini",
             "required": true,
             "value": ""
         },
         "BOT_USERNAME": {
-            "description": "fill with your bot username without @",
+            "description": " @",
             "required": true,
-            "value": "veezmusicbot"
+            "value": "stinkymusiconly_bot"
         },
         "ASSISTANT_NAME": {
-            "description": "fill with the assistant username without @",
+            "description": "masukan username akun assistan kalian tanpa @",
             "required": true,
-            "value": "veezasisstant"
+            "value": "stinkyasisstant"
         },
         "BG_IMAGE": {
             "description": "fill with your costum background image link",
             "required": false,
-            "value": "https://telegra.ph/file/8628c642a266a22effd8c.png"
+            "value": "https://telegra.ph/file/f4c153ac53ae686807521.jpg"
         },
         "OWNER_NAME": {
             "description": "fill with your telegram username without @",
@@ -61,7 +61,7 @@
         "ALIVE_NAME": {
             "description": "fill with the nickname of your telegram account",
             "required": false,
-            "value": "Levina"
+            "value": "Stinkymusic"
         },
         "API_ID": {
             "description": "your Api ID from my.telegram.org/apps",
@@ -83,12 +83,12 @@
         "UPDATES_CHANNEL": {
             "description": "if you have channel, fill the channel username here without @",
             "required": false,
-            "value": "levinachannel"
+            "value": "Stinkyrz"
         },
         "GROUP_SUPPORT": {
             "description": "if you have group, fill the group username here without @",
             "required": false,
-            "value": "VeezSupportGroup"
+            "value": "StinkyGroupChatt"
         }
     },
     "addons": [],
