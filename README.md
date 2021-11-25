@@ -1,6 +1,6 @@
-<p align="center"><a href="https://t.me/VeezMusicBot"><img src="https://github.com/levina-lab/VeezMusic/raw/main/etc/veezlogo.png"></a></p>
+<p align="center"><a href="https://t.me/Stinkyrz"><img src="https://telegra.ph/file/f4c153ac53ae686807521.jpg"></a></p>
 <p align="center">
-    <br><b>Veez Music is a telegram bot project that's allow you to play music on telegram voice chat group</b><br>
+    <br><b>Stinky Music is a telegram bot project that's allow you to play music on telegram voice chat group</b><br>
 </p>
 <p align="center">
     <a href="https://www.python.org/" alt="made-with-python"> <img src="https://img.shields.io/badge/Made%20with-Python-black.svg?style=flat-square&logo=python&logoColor=blue&color=red" /></a>
@@ -83,12 +83,12 @@
 - `/blocklist` - show the list of all people who's blocked for using your bot
 
 ## 🔎 Inline Search Support
-- just type the bot username in any chat, example: "`@VeezMusicBot Faded Alan Walker`", then bot will give you a results of the query you search in inline mode.
+- just type the bot username in any chat, example: "`@Stinkymusiconly_bot Faded Alan Walker`", then bot will give you a results of the query you search in inline mode.
 
 ## Heroku Deployment <img src="./etc/Kenpurple.gif" width="40px">
 The easy way to host this bot, deploy to Heroku, Change the app country to Europe (it will help to make the bot stable).
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/levina-lab/veezmusic)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Stinkyproject/Stinkymusic)
 
 ## VPS Deployment 📡
 
@@ -98,8 +98,8 @@ sudo apt install python3-pip ffmpeg -y
 sudo curl -sL https://deb.nodesource.com/setup_17.x | sudo bash -
 sudo apt-get install -y nodejs
 sudo npm i -g npm
-git clone https://github.com/levina-lab/VeezMusic # clone the repo.
-cd VeezMusic
+git clone https://github.com/Stinkyproject/Stinkymusic # clone the repo.
+cd Stinkymusic
 sudo pip3 install --upgrade pip
 sudo pip3 install -U -r requirements.txt
 cp example.env .env # use vim to edit ENVs
@@ -120,6 +120,6 @@ sudo python3 main.py # run the bot.
 - [Veez Music Bot](https://t.me/veezmusicbot) Our Music Bot
 - [RojSerBest](https://github.com/rojserbest) CallsMusic Developer
 - [TeamDaisyX](https://github.com/TeamDaisyX) for base code
-
+- [Stinky Music](https://github.com/stinkyproject/stinkymusic) Stinky music
 ### Support & Updates 🎑
-<a href="https://t.me/VeezSupportGroup"><img src="https://img.shields.io/badge/Join-Group%20Support-blue.svg?style=for-the-badge&logo=Telegram"></a> <a href="https://t.me/levinachannel"><img src="https://img.shields.io/badge/Join-Updates%20Channel-blue.svg?style=for-the-badge&logo=Telegram"></a>
+<a href="https://t.me/StinkyGroupChatt"><img src="https://img.shields.io/badge/Join-Group%20Support-blue.svg?style=for-the-badge&logo=Telegram"></a> <a href="https://t.me/Stinkyrz"><img src="https://img.shields.io/badge/Join-Updates%20Channel-blue.svg?style=for-the-badge&logo=Telegram"></a>
