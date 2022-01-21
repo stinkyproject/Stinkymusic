@@ -1,7 +1,7 @@
 {
     "name": "Stinky Music Bot",
     "logo": "https://telegra.ph/file/f4c153ac53ae686807521.jpg",
-    "description": "veez music allow you to stream music trought the telegram voice chat feature.",
+    "description": "stinky music allow you to stream music trought the telegram voice chat feature.",
     "keywords": [
         "music", 
         "voice chat", 
@@ -56,7 +56,7 @@
         "OWNER_NAME": {
             "description": "fill with your telegram username without @",
             "required": false,
-            "value": "dlwrml"
+            "value": "Callme_stinky"
         },
         "ALIVE_NAME": {
             "description": "fill with the nickname of your telegram account",
@@ -78,7 +78,7 @@
         "DURATION_LIMIT": {
             "description": "max duration for music to download (in minutes, default is 40).",
             "required": true,
-            "value": "40"
+            "value": "60"
         },
         "UPDATES_CHANNEL": {
             "description": "if you have channel, fill the channel username here without @",
@@ -88,7 +88,7 @@
         "GROUP_SUPPORT": {
             "description": "if you have group, fill the group username here without @",
             "required": false,
-            "value": "StinkyGroupChatt"
+            "value": "Stinkysupport"
         }
     },
     "addons": [],
